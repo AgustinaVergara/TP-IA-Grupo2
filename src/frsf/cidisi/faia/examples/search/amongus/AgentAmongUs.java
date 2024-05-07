@@ -24,19 +24,25 @@ public class AgentAmongUs extends SearchBasedAgent {
 
 	    // Create the operators
 	    Vector<SearchAction> operators = new Vector<SearchAction>();
-	    operators.addElement(new MoverAmongUs());
+	    
+	    //De este modo utilizamos instanciias de la accion Mover generica y no es necesario crear una clase para cada movimiento
+	    for(int i=1; i<=21;i++) {
+	    	operators.addElement(new MoverAmongUs(i));
+	    }
+	    
 	    operators.addElement(new SabotearAmongUs());
 	    operators.addElement(new MatarAmongUs());
+	    
+	   
 
-	    // Create the Problem which the Pacman will resolve
+	    // Create the Problem which the Among Us will resolve
 	    Problem problem = new Problem(objetivo, amongUsState, operators);
 	    this.setProblem(problem);
 	}
     
 	@Override
 	public void see(Perception p) {
-		// TODO Auto-generated method stub
-		
+		 this.getAgentState().updateState(p);		
 	}
 	@Override
 	public Action selectAction() {
