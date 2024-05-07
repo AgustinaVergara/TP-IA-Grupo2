@@ -7,6 +7,12 @@ import frsf.cidisi.faia.state.EnvironmentState;
 
 public class MoverAmongUs extends SearchAction{
 
+	private int nodo;
+	
+	public MoverAmongUs(int nodo) {
+		this.nodo = nodo;
+	}
+
 	@Override
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
 		// TODO Auto-generated method stub

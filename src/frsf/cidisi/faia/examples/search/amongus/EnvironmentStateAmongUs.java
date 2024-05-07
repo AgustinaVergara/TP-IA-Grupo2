@@ -10,6 +10,8 @@ import frsf.cidisi.faia.state.EnvironmentState;
 
 public class EnvironmentStateAmongUs extends EnvironmentState{
 	
+	private Integer energiaInicial;
+	private Nodo ubicaciónInicial; 
 	private Map<Nodo, List<Nodo>> nave;
 	
 	private Nodo nodo1;

@@ -2,14 +2,15 @@ package frsf.cidisi.faia.examples.search.amongus;
 
 public class TareaAmongUs {
 	
-	private Nodo ubicacion;
+	private String nombre;
 	private Boolean realizada;
 	
-	public Nodo getUbicacion() {
-		return ubicacion;
+	
+	public String getNombre() {
+		return nombre;
 	}
-	public void setUbicacion(Nodo ubicacion) {
-		this.ubicacion = ubicacion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public Boolean getRealizada() {
 		return realizada;

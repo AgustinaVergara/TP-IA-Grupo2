@@ -7,6 +7,8 @@ public class Nodo {
 	
 	private Integer id;
 	private String nombre;
+	private List<Tripulante> listaTripulantes;
+	private TareaAmongUs tarea;
 	
 	public Nodo(Integer id, String nombre) {
 		super();
@@ -17,6 +19,8 @@ public class Nodo {
 	public String toString() {
 		return this.id.toString();
 	}
+	
+	
 	
 	
 }
