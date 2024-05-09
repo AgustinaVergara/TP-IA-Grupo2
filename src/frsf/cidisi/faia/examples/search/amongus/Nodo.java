@@ -1,5 +1,6 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class Nodo {
 		super();
 		this.id = id;
 		this.setNombre(nombre);
+		this.listaTripulantes = new ArrayList<>();
 	}
 	
 	public String toString() {
@@ -46,7 +48,11 @@ public class Nodo {
 
 	public Object getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

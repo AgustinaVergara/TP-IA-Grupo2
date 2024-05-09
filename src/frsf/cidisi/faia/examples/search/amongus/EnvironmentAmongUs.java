@@ -8,7 +8,7 @@ public class EnvironmentAmongUs extends Environment{
 	
 	
 	public EnvironmentAmongUs() {
-		EnvironmentStateAmongUs environment = new EnvironmentStateAmongUs();
+		EnvironmentStateAmongUs environment = new EnvironmentStateAmongUs(6);
 		this.environmentState = environment;
 	}
 	
