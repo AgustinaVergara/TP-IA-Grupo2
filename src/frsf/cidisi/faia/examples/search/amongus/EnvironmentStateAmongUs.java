@@ -11,7 +11,11 @@ import frsf.cidisi.faia.state.EnvironmentState;
 public class EnvironmentStateAmongUs extends EnvironmentState{
 	
 	private Integer energiaInicial;
-	private Nodo ubicaciónInicial; 
+	private Integer energiaActual;
+	private Nodo ubicaciónInicial; //es necesario guardar la ubicacion inicial?
+	private Integer nodoActualAgente;
+	private Integer tripulantesVivos;
+	private Integer tareasPendientes;
 	private Map<Nodo, List<Nodo>> nave;
 	
 	private Nodo nodo1;
@@ -37,7 +41,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 	private Nodo nodo21;
 	
 	//Constructors
-	public EnvironmentStateAmongUs() {
+	public EnvironmentStateAmongUs(int cantidadTripulantes) {
 		super();
 		//Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
 		nave = new HashMap<>();
@@ -89,31 +93,95 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 		nave.put(nodo20, new ArrayList<>(Arrays.asList(nodo17, nodo21)));
 		nave.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));
 		
+		
+		//Asiganmos la posicion inicial del agente
+		this.nodoActualAgente = new Random().nextInt(nave.size());
+		this.energiaInicial = 100;
+		this.energiaActual = this.energiaInicial;
+		this.tripulantesVivos = cantidadTripulantes;
+		this.tareasPendientes = 3;
+		
+		generarObjetivos(cantidadTripulantes);
+		
+		
 		this.initState();
 	
 	}
 	
-	@Override
+	
 	public void initState() {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void generarObjetivos(int cantidadTripulantes) {
+	    ArrayList<Tripulante> listaTripulantes = new ArrayList<>();//si no lo usamos muere
+	    List<Nodo> allNodes = new ArrayList<>(nave.keySet()); 
 
-	@Override
+	    // generar en posicioles aleatorias (0 to nave.size() - 1)
+	    for (int i = 0; i < cantidadTripulantes; i++) {
+	    	
+	        int randomNodeIndex = new Random().nextInt(allNodes.size());
+	        Nodo randomNode = allNodes.get(randomNodeIndex);
+	
+	        Tripulante nuevoTripulante = new Tripulante(i);
+	        listaTripulantes.add(nuevoTripulante);//si no lo usamos muere
+	        
+	        randomNode.getListaTripulantes().add(nuevoTripulante);
+	    }
+	    
+	    Set<Integer> nodosAsignadosIndices = new HashSet<>();
+	    while (nodosAsignadosIndices.size() < 3) {
+	        int randomNodeIndex = new Random().nextInt(allNodes.size());
+	        Nodo randomNode = allNodes.get(randomNodeIndex);
+
+	        if (!nodosAsignadosIndices.contains(randomNodeIndex)) {
+	        	nodosAsignadosIndices.add(randomNodeIndex);
+                randomNode.setTarea(new TareaAmongUs("Tarea Aleatoria"));
+	        }
+	    }
+	    
+	}
+
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+	    StringBuilder sb = new StringBuilder();
 
 	    // Iterar sobre cada nodo en el grafo
 	    for (Map.Entry<Nodo, List<Nodo>> entry : nave.entrySet()) {
 	        Nodo nodo = entry.getKey();
 	        List<Nodo> adyacentes = entry.getValue();
-	        
-	        // Agregar el nodo y sus adyacentes a la representación del grafo
-	        sb.append(nodo.toString()).append(" -> ");
-	        for (Nodo adyacente : adyacentes) {
-	            sb.append(adyacente.toString()).append(", ");
+
+	        // Agregar detalles del nodo
+	        sb.append("Nodo ID: ").append(nodo.getId()).append(", Nombre: ").append(nodo.getNombre()).append("\n");
+
+	        // Agregar detalles de los tripulantes en el nodo
+	        List<Tripulante> tripulantes = nodo.getListaTripulantes();
+	        sb.append("   Tripulantes: ");
+	        if (tripulantes.isEmpty()) {
+	            sb.append("Ninguno");
+	        } else {
+	            for (Tripulante tripulante : tripulantes) {
+	                sb.append(tripulante.getId()).append(", ");
+	            }
+	            sb.setLength(sb.length() - 2); // Eliminar la coma extra al final
 	        }
 	        sb.append("\n");
+
+	        // Agregar detalles de la tarea asignada al nodo
+	        TareaAmongUs tarea = nodo.getTarea();
+	        if (tarea != null) {
+	            sb.append("   Tarea realizada: ").append(tarea.getRealizada()).append("\n");
+	        } else {
+	            sb.append("   Tarea: Ninguna\n");
+	        }
+
+	        // Agregar adyacentes
+	        sb.append("   Adyacentes: ");
+	        for (Nodo adyacente : adyacentes) {
+	            sb.append(adyacente.getId()).append(", ");
+	        }
+	        sb.setLength(sb.length() - 2); // Eliminar la coma extra al final
+	        sb.append("\n\n");
 	    }
 
 	    return sb.toString();

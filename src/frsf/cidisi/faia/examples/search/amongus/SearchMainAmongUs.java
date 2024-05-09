@@ -8,7 +8,7 @@ public class SearchMainAmongUs {
 	public static void main(String[] args) throws PrologConnectorException{
 		//AmongUsAgent amongUsAgent  =  new AmongUsAgent();
 		
-		EnvironmentStateAmongUs  amongUsEnvironment = new EnvironmentStateAmongUs();
+		EnvironmentStateAmongUs  amongUsEnvironment = new EnvironmentStateAmongUs(6);
 		System.out.println(amongUsEnvironment.toString());
 		
 		//SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(amongUsEnvironment, amongUsAgent);

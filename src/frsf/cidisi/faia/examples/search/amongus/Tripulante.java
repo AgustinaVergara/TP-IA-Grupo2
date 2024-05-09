@@ -1,9 +1,21 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
+import java.util.Random;
+
 public class Tripulante {
 	
 	private Integer id;
 	private Boolean estaVivo;
+	private Integer ciclosParaMoverse;
+	
+	public Tripulante(Integer id) {
+		
+		this.id = id;
+		this.estaVivo = true;
+		
+		Random random = new Random();
+	    this.ciclosParaMoverse = random.nextInt(4);
+		}
 	
 	public Integer getId() {
 		return id;
@@ -17,6 +29,12 @@ public class Tripulante {
 	}
 	public void setEstaVivo(Boolean estaVivo) {
 		this.estaVivo = estaVivo;
+	}
+	public Integer getCiclosParaMoverse() {
+		return ciclosParaMoverse;
+	}
+	public void setCiclosParaMoverse(Integer ciclosParaMoverse) {
+		this.ciclosParaMoverse = ciclosParaMoverse;
 	}
 
 }

@@ -5,6 +5,10 @@ public class TareaAmongUs {
 	private String nombre;
 	private Boolean realizada;
 	
+	public TareaAmongUs(String nombre) {
+		this.nombre=nombre;
+		this.realizada=false;
+	}
 	
 	public String getNombre() {
 		return nombre;
