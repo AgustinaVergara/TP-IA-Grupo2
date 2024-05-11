@@ -25,7 +25,8 @@ public class EnvironmentAmongUs extends Environment{
 	public Perception getPercept() {
 		
 		//aca controlamos si es la percepcion general o los adyacentes nada más 
-		//en la percepcion general le pasamos el mapa entero y el se lo copia
+		//en la percepcion general le pasamos el mapa entero y el se lo copia|
+		
 		
 		PerceptionAmongUs perception = new PerceptionAmongUs();
 
@@ -33,7 +34,8 @@ public class EnvironmentAmongUs extends Environment{
 		return perception;
 	}
 	
-	private void ciclosTripulantes() {
+	private void ciclosTripulantes() {//agregar el avance de los ciclso hasta percepcion magica
+		
 	    for (Nodo nodo : ((EnvironmentStateAmongUs)this.environmentState).getNave().keySet()) {
 	        List<Tripulante> tripulantes = nodo.getListaTripulantes();
 	        

@@ -12,7 +12,6 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 	
 	private Integer energiaInicial;
 	private Integer energiaActual;
-	
 	private Nodo ubicaciónInicial; //es necesario guardar la ubicacion inicial?
 	private Integer nodoActualAgente;
 	private Integer tripulantesVivos;
