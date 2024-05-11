@@ -12,10 +12,12 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 	
 	private Integer energiaInicial;
 	private Integer energiaActual;
+	
 	private Nodo ubicaciónInicial; //es necesario guardar la ubicacion inicial?
 	private Integer nodoActualAgente;
 	private Integer tripulantesVivos;
 	private Integer tareasPendientes;
+	private Integer proximaVisionGlobal;
 	private Map<Nodo, List<Nodo>> nave;
 	
 	private Nodo nodo1;
@@ -97,8 +99,9 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 		//Asiganmos la posicion inicial del agente
 		this.nodoActualAgente = new Random().nextInt(nave.size());
 		this.energiaInicial = 100;
-		this.energiaActual = this.energiaInicial;
-		this.tripulantesVivos = cantidadTripulantes;
+		this.setEnergiaActual(this.energiaInicial);
+		this.setTripulantesVivos(cantidadTripulantes);
+		this.proximaVisionGlobal = new Random().nextInt(3) + 3;
 		this.tareasPendientes = 3;
 		
 		generarObjetivos(cantidadTripulantes);
@@ -186,5 +189,85 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 
 	    return sb.toString();
 	}
+
+
+	public Integer getTripulantesVivos() {
+		return tripulantesVivos;
+	}
+
+
+	public void setTripulantesVivos(Integer tripulantesVivos) {
+		this.tripulantesVivos = tripulantesVivos;
+	}
+
+
+	public Integer getEnergiaActual() {
+		return energiaActual;
+	}
+
+
+	public void setEnergiaActual(Integer energiaActual) {
+		this.energiaActual = energiaActual;
+	}
+	public Integer getEnergiaInicial() {
+		return energiaInicial;
+	}
+
+
+	public void setEnergiaInicial(Integer energiaInicial) {
+		this.energiaInicial = energiaInicial;
+	}
+
+
+	public Nodo getUbicaciónInicial() {
+		return ubicaciónInicial;
+	}
+
+
+	public void setUbicaciónInicial(Nodo ubicaciónInicial) {
+		this.ubicaciónInicial = ubicaciónInicial;
+	}
+
+
+	public Integer getNodoActualAgente() {
+		return nodoActualAgente;
+	}
+
+
+	public void setNodoActualAgente(Integer nodoActualAgente) {
+		this.nodoActualAgente = nodoActualAgente;
+	}
+
+
+	public Integer getTareasPendientes() {
+		return tareasPendientes;
+	}
+
+
+	public void setTareasPendientes(Integer tareasPendientes) {
+		this.tareasPendientes = tareasPendientes;
+	}
+
+
+	public Integer getProximaVisionGlobal() {
+		return proximaVisionGlobal;
+	}
+
+
+	public void setProximaVisionGlobal(Integer proximaVisionGlobal) {
+		this.proximaVisionGlobal = proximaVisionGlobal;
+	}
+
+
+	public Map<Nodo, List<Nodo>> getNave() {
+		return nave;
+	}
+
+
+	public void setNave(Map<Nodo, List<Nodo>> nave) {
+		this.nave = nave;
+	}
+
+
 
 }

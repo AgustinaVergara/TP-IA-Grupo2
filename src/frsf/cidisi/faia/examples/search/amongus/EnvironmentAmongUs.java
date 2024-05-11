@@ -1,5 +1,8 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
+import java.util.List;
+import java.util.Random;
+
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
 import frsf.cidisi.faia.examples.search.pacman.PacmanEnvironmentState;
@@ -28,6 +31,30 @@ public class EnvironmentAmongUs extends Environment{
 
 
 		return perception;
+	}
+	
+	private void ciclosTripulantes() {
+	    for (Nodo nodo : ((EnvironmentStateAmongUs)this.environmentState).getNave().keySet()) {
+	        List<Tripulante> tripulantes = nodo.getListaTripulantes();
+	        
+	        for (Tripulante tripulante : tripulantes) {
+	            if (tripulante.getCiclosParaMoverse() > 0) { // Si todavía no se tiene que mover, resto uno
+	                tripulante.setCiclosParaMoverse(tripulante.getCiclosParaMoverse() - 1);
+	            } else { // Si se tiene que mover
+	                List<Nodo> adyacentes = ((EnvironmentStateAmongUs)this.environmentState).getNave().get(nodo);
+	                // Mover el tripulante a un nodo adyacente aleatorio
+	                int randomIndex = new Random().nextInt(adyacentes.size());
+	                Nodo nuevoNodo = adyacentes.get(randomIndex);
+
+	                // Quitar el tripulante del nodo actual y agregarlo al nuevo nodo
+	                nodo.getListaTripulantes().remove(tripulante);
+	                nuevoNodo.getListaTripulantes().add(tripulante);
+
+	                // Asignar el nuevo nodo como nodo actual del tripulante
+	                tripulante.setCiclosParaMoverse(new Random().nextInt(3) + 1); // Setear un random entre 1 y 3 para los ciclos
+	            }
+	        }
+	    }
 	}
 
 }
