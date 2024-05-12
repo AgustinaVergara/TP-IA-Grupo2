@@ -38,11 +38,58 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		this.initState();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public SearchBasedAgentState clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateState(Perception p) {
+	    // Convertir la percepción a PerceptionAmongUs
+	    PerceptionAmongUs percepcion = (PerceptionAmongUs) p;
+
+	    // Actualizar la ubicación actual del agente
+	    this.setUbicacion(percepcion.getNodoActualAgente());
+
+	    // Obtener los nodos vecinos de la ubicación actual
+	    List<Nodo> nodosVecinos = percepcion.getNodosVecinos();
+
+	    // Recorrer los nodos vecinos y actualizar su información en la estructura `naveAgente`
+	    for (Nodo nodoVecino : nodosVecinos) {
+	        // Si el nodo vecino ya existe en la estructura `naveAgente`, actualizar su información
+	        if (this.naveAgente.containsKey(nodoVecino)) {
+	            // Obtener la información actual del nodo vecino de la estructura `naveAgente`
+	            Nodo nodoVecinoEnNaveAgente = (Nodo) this.naveAgente.get(nodoVecino);
+
+	      // Actualizar la información del nodo vecino en la estructura `naveAgente` utilizando la información de la percepción
+	            nodoVecinoEnNaveAgente.setListaTripulantes(percepcion.getTripulantesEnNodo(nodoVecino));
+	            nodoVecinoEnNaveAgente.setTarea(percepcion.getTareaEnNodo(nodoVecino));
+	        }
+	    }
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void initState() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public Map<Nodo, List<Nodo>> getNaveAgente() {
 		return naveAgente;
 	}
-
-
 
 	public void setNaveAgente(Map<Nodo, List<Nodo>> naveAgente) {
 		this.naveAgente = naveAgente;
@@ -103,37 +150,5 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 	public void setTripulantes(List<Tripulante> tripulantes) {
 		this.tripulantes = tripulantes;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public SearchBasedAgentState clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateState(Perception p) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void initState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 
 }

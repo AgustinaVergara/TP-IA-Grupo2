@@ -13,7 +13,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 	private Integer energiaInicial;
 	private Integer energiaActual;
 	private Nodo ubicaciónInicial; //es necesario guardar la ubicacion inicial?
-	private Integer nodoActualAgente;
+	private Nodo nodoActualAgente;
 	private Integer tripulantesVivos;
 	private Integer tareasPendientes;
 	private Integer proximaVisionGlobal;
@@ -96,7 +96,10 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 		
 		
 		//Asiganmos la posicion inicial del agente
-		this.nodoActualAgente = new Random().nextInt(nave.size());
+		List<Nodo> allNodes = new ArrayList<>(nave.keySet());
+		int randomNodeIndex = new Random().nextInt(allNodes.size()); 
+		Nodo nodoInicialAgente = allNodes.get(randomNodeIndex);
+		this.nodoActualAgente = nodoInicialAgente;
 		this.energiaInicial = 100;
 		this.setEnergiaActual(this.energiaInicial);
 		this.setTripulantesVivos(cantidadTripulantes);
@@ -188,6 +191,8 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 
 	    return sb.toString();
 	}
+	
+	
 
 
 	public Integer getTripulantesVivos() {
@@ -228,12 +233,12 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 	}
 
 
-	public Integer getNodoActualAgente() {
+	public Nodo getNodoActualAgente() {
 		return nodoActualAgente;
 	}
 
 
-	public void setNodoActualAgente(Integer nodoActualAgente) {
+	public void setNodoActualAgente(Nodo nodoActualAgente) {
 		this.nodoActualAgente = nodoActualAgente;
 	}
 

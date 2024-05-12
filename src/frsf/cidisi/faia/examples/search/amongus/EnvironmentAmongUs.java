@@ -27,11 +27,28 @@ public class EnvironmentAmongUs extends Environment{
 		//aca controlamos si es la percepcion general o los adyacentes nada más 
 		//en la percepcion general le pasamos el mapa entero y el se lo copia|
 		
-		
+		this.ciclosTripulantes();
 		PerceptionAmongUs perception = new PerceptionAmongUs();
+		
+		EnvironmentStateAmongUs state = getEnvironmentState();
 
+	    // Obtener el nodo actual del agente
+	    Nodo nodoActual = null;
+	    for (Nodo nodo : state.getNave().keySet()) {
+	        if (nodo.getId() == state.getNodoActualAgente()) {
+	            nodoActual = nodo;
+	            break;
+	        }
+	    }
 
-		return perception;
+	    // Establecer los nodos vecinos
+	    perception.setNodosVecinos(state.getNave().get(nodoActual));
+
+	    // Establecer el nodo actual del agente
+	    perception.setNodoActualAgente(nodoActual);
+
+	    // Retornar la percepción actualizada
+	    return perception;
 	}
 	
 	private void ciclosTripulantes() {//agregar el avance de los ciclso hasta percepcion magica
