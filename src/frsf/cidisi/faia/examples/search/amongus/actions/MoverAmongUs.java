@@ -4,19 +4,38 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
+import frsf.cidisi.faia.examples.search.amongus.*;
 
 public class MoverAmongUs extends SearchAction{
 
-	private int nodo;
+	private int nodoSiguiente;
 	
-	public MoverAmongUs(int nodo) {
-		this.nodo = nodo;
+	public MoverAmongUs(int nodoSiguiente) {
+		this.nodoSiguiente = nodoSiguiente;
 	}
+	
 
 	@Override
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
-		// TODO Auto-generated method stub
-		return null;
+		//Actualiza el estado del agente luego de moverse
+		//ACA PONER LA LOGICA PARA QUE MUEVA AL SIGUIENTE NODO
+		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) s;
+		
+		//Como nodoSiguiente es un int hago un for sobre los nodos adyacente comparando los id cuando encuentre el que coincide hago el movimiento
+		for(Nodo nodo : estadoAgente.getNodosAdyacentes()) {
+			if((int)nodo.getId() == this.nodoSiguiente) {
+				//Actualizo energia, ubicación 
+				estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
+				estadoAgente.setUbicacion(nodo);
+				//Ver si tambien tengo que actualizar nodos adyacentes y si se hace así
+				estadoAgente.setNodosAdyacentes(estadoAgente.getNaveAgente().get(nodo));
+	
+				//Para que no siga buscando coincidencias
+				break;
+			}
+		}
+		
+		return estadoAgente;
 	}
 
 	@Override
@@ -28,13 +47,31 @@ public class MoverAmongUs extends SearchAction{
 	@Override
 	public EnvironmentState execute(AgentState ast, EnvironmentState est) {
 		// TODO Auto-generated method stub
-		return null;
+		//Actualiza el estado del ambiente luego de moverse
+		//ACA PONER LA LOGICA PARA ACTUALIZAR POSICION Y ENERGIA DEL AMBIENTE
+		
+		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) ast;
+		EnvironmentStateAmongUs estadoAmbiente = (EnvironmentStateAmongUs)est;
+		
+		for(Nodo nodo : estadoAgente.getNodosAdyacentes()) {
+			if((int)nodo.getId() == this.nodoSiguiente) {
+				
+				estadoAmbiente.setEnergiaActual(estadoAgente.getEnergia() - 1);
+				estadoAmbiente.setNodoActualAgente(nodo);
+				//Para que no siga buscando coincidencias
+				break;
+			}
+		}
+		
+		return estadoAmbiente;
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		String str;
+		
+		str = "Moviendo a: " + this.nodoSiguiente;
+		return str;
 	}
 	
 }

@@ -113,9 +113,9 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 	
 	}
 	
-	
+	//En este metodo configuro el estado inicial del juego
 	public void initState() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -272,6 +272,6 @@ public class EnvironmentStateAmongUs extends EnvironmentState{
 		this.nave = nave;
 	}
 
-
+	
 
 }
