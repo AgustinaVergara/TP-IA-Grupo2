@@ -5,6 +5,7 @@ import java.util.Map;
 
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
+import frsf.cidisi.faia.examples.search.pacman.PacmanAgentState;
 
 public class AgentStateAmongUs extends SearchBasedAgentState {
 	
@@ -16,11 +17,12 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 	private Integer tareasPendientes;
 	private Integer tripulantesVivos;
 	private List<Tripulante> tripulantes;
+	private List<Nodo> nodosAdyacentes;
 	
 
 	public AgentStateAmongUs(Map<Nodo, List<Nodo>> naveAgente, Nodo ubicacion, Integer energia, Integer energiaInicial,
 			List<TareaAmongUs> tareas, Integer tareasPendientes, Integer tripulantesVivos,
-			List<Tripulante> tripulantes) {
+			List<Tripulante> tripulantes, List<Nodo> nodosAdyacentes) {
 		super();
 		this.naveAgente = naveAgente;
 		this.ubicacion = ubicacion;
@@ -30,6 +32,7 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		this.tareasPendientes = tareasPendientes;
 		this.tripulantesVivos = tripulantesVivos;
 		this.tripulantes = tripulantes;
+		this.nodosAdyacentes = nodosAdyacentes;
 	}
 
 	public AgentStateAmongUs() {
@@ -37,17 +40,56 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		// TODO Auto-generated constructor stub
 		this.initState();
 	}
+	/*
+	 * 
+	
+	private List<Tripulante> tripulantes;
+	private List<Nodo> nodosAdyacentes;*/
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
+		//A chequear. Esto seguramente esta mal
+		
+		AgentStateAmongUs estadoAComparar = (AgentStateAmongUs) obj;
+		
+		if(estadoAComparar.getNaveAgente() != this.naveAgente) {
+			return false;
+		}
+		if(estadoAComparar.getUbicacion() != this.ubicacion) {
+			return false;
+		}
+		if(estadoAComparar.getEnergia() != this.energia) {
+			return false;
+		}
+		if(estadoAComparar.getEnergiaInicial() != this.energiaInicial) {
+			return false;
+		}
+		if(estadoAComparar.getTareas()  != this.tareas) {
+			return false;
+		}
+		if(estadoAComparar.getTareasPendientes() != this.tareasPendientes) {
+			return false;
+		}
+		if(estadoAComparar.getTripulantesVivos() != this.tripulantesVivos) {
+			return false;
+		}
+		if(estadoAComparar.getTripulantes() != this.tripulantes) {
+			return false;
+		}
+		if(estadoAComparar.getNodosAdyacentes() != this.nodosAdyacentes) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public SearchBasedAgentState clone() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		AgentStateAmongUs nuevoEstado = new AgentStateAmongUs(this.naveAgente, this.ubicacion, this.energia, this.energiaInicial,
+				this.tareas, this.tareasPendientes, this.tripulantesVivos,  this.tripulantes, this.nodosAdyacentes);
+		
+		return nuevoEstado; 
 	}
 
 	@Override
@@ -60,7 +102,9 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 
 	    // Obtener los nodos vecinos de la ubicación actual
 	    List<Nodo> nodosVecinos = percepcion.getNodosVecinos();
-
+	    //Agus: pruebo guardar estos nodos vecinos para usarlos en el mover
+	    this.nodosAdyacentes = percepcion.getNodosVecinos();
+	    
 	    // Recorrer los nodos vecinos y actualizar su información en la estructura `naveAgente`
 	    for (Nodo nodoVecino : nodosVecinos) {
 	        // Si el nodo vecino ya existe en la estructura `naveAgente`, actualizar su información
@@ -151,4 +195,22 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		this.tripulantes = tripulantes;
 	}
 
+	public List<Nodo> getNodosAdyacentes() {
+		return nodosAdyacentes;
+	}
+
+	public void setNodosAdyacentes(List<Nodo> nodosAdyacentes) {
+		this.nodosAdyacentes = nodosAdyacentes;
+	}
+	
+	//Setear una tarea en particular como realizada o no 
+	public void setTareaRealizada(String nombreTarea, boolean realizada) {
+        for (TareaAmongUs tarea : tareas) {
+            if (tarea.getNombre().equals(nombreTarea)) {
+                tarea.setRealizada(realizada);
+                break; // Salir del bucle una vez que la tarea ha sido encontrada y modificada
+            }
+        }
+    }
+	
 }

@@ -2,6 +2,8 @@ package frsf.cidisi.faia.examples.search.amongus.actions;
 
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
+import frsf.cidisi.faia.examples.search.amongus.AgentStateAmongUs;
+import frsf.cidisi.faia.examples.search.amongus.EnvironmentStateAmongUs;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 
@@ -9,8 +11,19 @@ public class SabotearAmongUs extends SearchAction {
 
 	@Override
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
-		// TODO Auto-generated method stub
-		return null;
+		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) s;
+		
+		//En el nodo ubicacion del agente me fijo si tiene tarea y si la misma esta realizada o no
+		if(estadoAgente.getUbicacion().getTarea() != null && !estadoAgente.getUbicacion().getTarea().getRealizada()) {
+			//En el nodo de ubicacion del agente pongo la tarea realizada
+			estadoAgente.getUbicacion().getTarea().setRealizada(true);
+			estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
+			estadoAgente.setTareasPendientes(estadoAgente.getTareasPendientes() - 1);
+			//En la lista de tareas del agente seteo la tarea como realizada
+			estadoAgente.setTareaRealizada(estadoAgente.getUbicacion().getTarea().getNombre(), true);
+			
+		}
+		return estadoAgente;
 	}
 
 	@Override
@@ -21,8 +34,16 @@ public class SabotearAmongUs extends SearchAction {
 
 	@Override
 	public EnvironmentState execute(AgentState ast, EnvironmentState est) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) ast;
+		EnvironmentStateAmongUs estadoAmbiente = (EnvironmentStateAmongUs)est;
+		
+		if(estadoAgente.getUbicacion().getTarea() != null) {
+			estadoAmbiente.setEnergiaActual(estadoAmbiente.getEnergiaActual() - 1);
+		}
+		
+		return estadoAmbiente;
+		
 	}
 
 	@Override

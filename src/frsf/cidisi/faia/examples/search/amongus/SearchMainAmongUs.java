@@ -8,7 +8,7 @@ public class SearchMainAmongUs {
 	public static void main(String[] args) throws PrologConnectorException{
 		
 		// Crear instancia del Agente:
-		//AgentAmongUs amongUsAgent  =  new AgentAmongUs();
+		AgentAmongUs amongUsAgent  =  new AgentAmongUs();
 		
 		// Crear instancia de EnvironmentAmongUs
 		//EnvironmentAmongUs  amongUsEnvironment = new EnvironmentAmongUs();

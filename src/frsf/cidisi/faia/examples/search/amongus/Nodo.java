@@ -54,7 +54,5 @@ public class Nodo {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
-	
+		
 }
