@@ -14,13 +14,14 @@ public class MatarAmongUs extends SearchAction{
 	public SearchBasedAgentState execute(SearchBasedAgentState s) {
 		
 		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) s;
-		
+		 
 		//Si quedan tripulantes vivos y hay tripulantes en la habitacion
 		if(estadoAgente.getTripulantesVivos() > 0 && estadoAgente.getUbicacion().getListaTripulantes().size() != 0) {
 			Tripulante tripulanteAMatar = estadoAgente.getUbicacion().getListaTripulantes().get(0);
-			
+			//System.out.println("mate un tipo");
 			estadoAgente.setTripulantesVivos(estadoAgente.getTripulantesVivos()-1);
 			estadoAgente.getUbicacion().getListaTripulantes().remove(tripulanteAMatar);
+			estadoAgente.setEnergia(estadoAgente.getEnergia()-1);
 			//Deberia poner en false el atributo estaVivo del tripulante? para mi ahora no tiene mucho sentido porque directamente
 			//lo estoy sacando de la lista 
 		}
@@ -51,7 +52,7 @@ public class MatarAmongUs extends SearchAction{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return "matar";
 	}
 	
 	

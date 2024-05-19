@@ -1,7 +1,5 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
-import java.util.Objects;
-
 public class TareaAmongUs {
     
     private String nombre;
@@ -35,18 +33,6 @@ public class TareaAmongUs {
                 ", realizada=" + realizada +
                 '}';
     }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        TareaAmongUs other = (TareaAmongUs) obj;
-        return Objects.equals(nombre, other.nombre) &&
-               Objects.equals(realizada, other.realizada);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(nombre, realizada);
-    }
+    
 }
 

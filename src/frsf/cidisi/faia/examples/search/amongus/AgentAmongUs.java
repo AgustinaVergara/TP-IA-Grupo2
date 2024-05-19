@@ -38,7 +38,7 @@ public class AgentAmongUs extends SearchBasedAgent {
 
         operators.addElement(new SabotearAmongUs());
         operators.addElement(new MatarAmongUs());
-
+        
         // Create the Problem which the Among Us will resolve
         Problem problem = new Problem(goal, (AgentStateAmongUs) amongUsState, operators);
         this.setProblem(problem);
@@ -57,29 +57,31 @@ public class AgentAmongUs extends SearchBasedAgent {
     public Action selectAction() {
         // Create the search strategy
     	 
-    	DepthFirstSearch strategy = new DepthFirstSearch();
-        //BreathFirstSearch strategy = new BreathFirstSearch();
+    	//DepthFirstSearch strategy = new DepthFirstSearch();
+        BreathFirstSearch strategy = new BreathFirstSearch();
         
 
         // Create a Search object with the strategy
         Search searchSolver = new Search(strategy);
 
         // Generate a file with the search tree
-        searchSolver.setVisibleTree(Search.GRAPHVIZ_TREE);
+        searchSolver.setVisibleTree(Search.EFAIA_TREE);
 
         // Set the Search solver
         this.setSolver(searchSolver);
+        
 
         // Ask the solver for the best action
         Action selectedAction = null;
         try {
             //ACA ES QUE EXPLOTA
             selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});
-            System.out.println("Estoy en select accion");
+            
+            
         } catch (Exception ex) {
             Logger.getLogger(AgentAmongUs.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         // Return the selected action
         return selectedAction;
     }

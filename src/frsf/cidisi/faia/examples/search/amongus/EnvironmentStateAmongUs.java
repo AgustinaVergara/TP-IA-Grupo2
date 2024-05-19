@@ -115,11 +115,11 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         Nodo nodoInicialAgente = allNodes.get(randomNodeIndex);
         this.nodoActualAgente = nodoInicialAgente;
         System.out.println("Nodo actual del agente: " + this.nodoActualAgente);
-        energiaInicial = 1;
+        energiaInicial = 100;
         energiaActual = energiaInicial;
-        tripulantesVivos = 6;
+        tripulantesVivos = 1;
         proximaVisionGlobal = 1; //primera percep global
-        tareasPendientes = 3;
+        tareasPendientes = 1;
         
         generarObjetivos(tripulantesVivos);
     }
@@ -139,7 +139,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         }
         
         Set<Integer> nodosAsignadosIndices = new HashSet<>();
-        while (nodosAsignadosIndices.size() < 3) {
+        while (nodosAsignadosIndices.size() < tareasPendientes) {
             int randomNodeIndex = new Random().nextInt(allNodes.size());
             Nodo randomNode = allNodes.get(randomNodeIndex);
 

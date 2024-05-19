@@ -3,7 +3,6 @@ package frsf.cidisi.faia.examples.search.amongus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Nodo {
 	
@@ -56,20 +55,6 @@ public class Nodo {
 		this.id = id;
 	}
 	
-	@Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Nodo other = (Nodo) obj;
-        return Objects.equals(id, other.id) &&
-               Objects.equals(nombre, other.nombre) &&
-               Objects.equals(listaTripulantes, other.listaTripulantes) &&
-               Objects.equals(tarea, other.tarea);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre, listaTripulantes, tarea);
-    }
+	
 		
 }

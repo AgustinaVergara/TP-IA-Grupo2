@@ -43,13 +43,8 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
         AgentStateAmongUs other = (AgentStateAmongUs) obj;
         return Objects.equals(naveAgente, other.naveAgente) &&
                Objects.equals(ubicacion, other.ubicacion) &&
-               Objects.equals(energia, other.energia) &&
-               Objects.equals(energiaInicial, other.energiaInicial) &&
-               Objects.equals(tareas, other.tareas) &&
                Objects.equals(tareasPendientes, other.tareasPendientes) &&
-               Objects.equals(tripulantesVivos, other.tripulantesVivos) &&
-               Objects.equals(tripulantes, other.tripulantes) &&
-               Objects.equals(nodosVecinos, other.nodosVecinos);
+               Objects.equals(tripulantesVivos, other.tripulantesVivos);
     }
 
     @Override
