@@ -7,14 +7,11 @@ public class ObjetivoAmongUs extends GoalTest {
 	
 	@Override
 	public boolean isGoalState(AgentState agentState) {
-		if(((AgentStateAmongUs) agentState).getTripulantesVivos()==0 &&(((AgentStateAmongUs) agentState).getTareasPendientes() == 0)) {
-			if(((AgentStateAmongUs) agentState).getEnergia()>=0) {
-				return true;
-			}else {
-				return false; 
-			}
-		}
-		return false;
+		if(((AgentStateAmongUs) agentState).getTripulantesVivos()==0 &&(((AgentStateAmongUs) agentState).getTareasPendientes() == 0 && 
+				(((AgentStateAmongUs) agentState).getEnergia()>=0))) { return true;
+			}else if (((AgentStateAmongUs) agentState).getEnergia()==0) return false; 
+			
+			else return false;
 	}
 
 }

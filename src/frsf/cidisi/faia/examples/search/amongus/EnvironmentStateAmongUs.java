@@ -114,7 +114,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         Nodo nodoInicialAgente = allNodes.get(randomNodeIndex);
         this.nodoActualAgente = nodoInicialAgente;
         System.out.println("Nodo actual del agente: " + this.nodoActualAgente);
-        energiaInicial = 100;
+        energiaInicial = 1;
         energiaActual = energiaInicial;
         tripulantesVivos = 6;
         proximaVisionGlobal = 1;

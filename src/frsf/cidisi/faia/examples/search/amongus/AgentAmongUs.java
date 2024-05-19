@@ -56,7 +56,10 @@ public class AgentAmongUs extends SearchBasedAgent {
     @Override
     public Action selectAction() {
         // Create the search strategy
-        BreathFirstSearch strategy = new BreathFirstSearch();
+    	 
+    	DepthFirstSearch strategy = new DepthFirstSearch();
+        //BreathFirstSearch strategy = new BreathFirstSearch();
+        
 
         // Create a Search object with the strategy
         Search searchSolver = new Search(strategy);
@@ -70,11 +73,9 @@ public class AgentAmongUs extends SearchBasedAgent {
         // Ask the solver for the best action
         Action selectedAction = null;
         try {
-        	System.out.println("Im the solver" + this.getSolver());
-            System.out.println("Im the problem" + this.getProblem());
-            
-            
+            //ACA ES QUE EXPLOTA
             selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});
+            System.out.println("Estoy en select accion");
         } catch (Exception ex) {
             Logger.getLogger(AgentAmongUs.class.getName()).log(Level.SEVERE, null, ex);
         }
