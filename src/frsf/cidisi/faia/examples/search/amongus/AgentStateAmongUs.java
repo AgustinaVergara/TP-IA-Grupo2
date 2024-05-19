@@ -40,16 +40,16 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        AgentStateAmongUs that = (AgentStateAmongUs) obj;
-        return Objects.equals(naveAgente, that.naveAgente) &&
-                Objects.equals(ubicacion, that.ubicacion) &&
-                Objects.equals(energia, that.energia) &&
-                Objects.equals(energiaInicial, that.energiaInicial) &&
-                Objects.equals(tareas, that.tareas) &&
-                Objects.equals(tareasPendientes, that.tareasPendientes) &&
-                Objects.equals(tripulantesVivos, that.tripulantesVivos) &&
-                Objects.equals(tripulantes, that.tripulantes) &&
-                Objects.equals(nodosVecinos, that.nodosVecinos);
+        AgentStateAmongUs other = (AgentStateAmongUs) obj;
+        return Objects.equals(naveAgente, other.naveAgente) &&
+               Objects.equals(ubicacion, other.ubicacion) &&
+               Objects.equals(energia, other.energia) &&
+               Objects.equals(energiaInicial, other.energiaInicial) &&
+               Objects.equals(tareas, other.tareas) &&
+               Objects.equals(tareasPendientes, other.tareasPendientes) &&
+               Objects.equals(tripulantesVivos, other.tripulantesVivos) &&
+               Objects.equals(tripulantes, other.tripulantes) &&
+               Objects.equals(nodosVecinos, other.nodosVecinos);
     }
 
     @Override
@@ -128,14 +128,15 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
     public void initState() {
         this.naveAgente = new HashMap<>();
         this.ubicacion = null;
-        this.energia = 2;
-        this.energiaInicial = 2;
+        this.energia = 1;
+        this.energiaInicial = 1;
         this.tareas = new ArrayList<>();
         this.tareasPendientes = 0;
         this.tripulantesVivos = 0;
         this.tripulantes = new ArrayList<>();
         this.nodosVecinos = new ArrayList<>();
     }
+
 
     // Getters y Setters
 

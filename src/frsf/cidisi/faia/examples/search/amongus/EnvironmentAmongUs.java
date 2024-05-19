@@ -67,14 +67,14 @@ public class EnvironmentAmongUs extends Environment {
         }
 
         for (Nodo nodo : state.getNave().keySet()) {
-            Iterator<Tripulante> iterator = nodo.getListaTripulantes().iterator();
-            while (iterator.hasNext()) {
-                Tripulante tripulante = iterator.next();
-                if (tripulante.getCiclosParaMoverse() > 0) {
-                    tripulante.setCiclosParaMoverse(tripulante.getCiclosParaMoverse() - 1);
-                } else {
-                    List<Nodo> adyacentes = state.getNave().get(nodo);
-                    if (!adyacentes.isEmpty()) {
+            List<Nodo> adyacentes = state.getNave().get(nodo);
+            if (adyacentes != null && !adyacentes.isEmpty()) {
+                Iterator<Tripulante> iterator = nodo.getListaTripulantes().iterator();
+                while (iterator.hasNext()) {
+                    Tripulante tripulante = iterator.next();
+                    if (tripulante.getCiclosParaMoverse() > 0) {
+                        tripulante.setCiclosParaMoverse(tripulante.getCiclosParaMoverse() - 1);
+                    } else {
                         int randomIndex = new Random().nextInt(adyacentes.size());
                         Nodo nuevoNodo = adyacentes.get(randomIndex);
                         iterator.remove(); // Eliminar el tripulante del nodo actual
@@ -85,6 +85,7 @@ public class EnvironmentAmongUs extends Environment {
             }
         }
     }
+    
 
     @Override
     public String toString() {

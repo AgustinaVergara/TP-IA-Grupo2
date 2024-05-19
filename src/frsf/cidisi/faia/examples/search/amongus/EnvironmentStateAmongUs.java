@@ -25,6 +25,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
     private Nodo nodo2;
     private Nodo nodo3;
     private Nodo nodo4;
+    /*
     private Nodo nodo5;
     private Nodo nodo6;
     private Nodo nodo7;
@@ -42,7 +43,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
     private Nodo nodo19;
     private Nodo nodo20;
     private Nodo nodo21;
-
+*/
     // En este metodo configuro el estado inicial del juego
     public void initState() {
        /* // Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
@@ -117,7 +118,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         energiaInicial = 1;
         energiaActual = energiaInicial;
         tripulantesVivos = 6;
-        proximaVisionGlobal = 1;
+        proximaVisionGlobal = 1; //primera percep global
         tareasPendientes = 3;
         
         generarObjetivos(tripulantesVivos);

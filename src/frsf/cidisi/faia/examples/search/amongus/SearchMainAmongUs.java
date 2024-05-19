@@ -17,6 +17,7 @@ public class SearchMainAmongUs {
 		EnvironmentAmongUs  amongUsEnvironment = new EnvironmentAmongUs();
 		amongUsEnvironment.getEnvironmentState().initState();
 		((AgentStateAmongUs)amongUsAgent.getAgentState()).setUbicacion(((EnvironmentStateAmongUs)amongUsEnvironment.getEnvironmentState()).getNodoActualAgente());
+		
 		SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(amongUsEnvironment, amongUsAgent);
 		
 		
