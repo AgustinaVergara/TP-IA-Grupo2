@@ -34,21 +34,25 @@ public class EnvironmentAmongUs extends Environment {
 
         // Establecer los nodos vecinos
         if (nodoActual != null) {
+        	
             perception.setNodosVecinos(state.getNave().get(nodoActual));
         }
 
         // Verificar si se debe pasar el mapa completo
         if (state.getProximaVisionGlobal() == 0) {
-            perception.setMapaCompleto(state.getNave());
+            perception.setMapaCompleto(state.getNave()); 
         }
 
         // Establecer la cantidad de tripulantes vivos y tareas pendientes
         perception.setTripulantesVivos(state.getTripulantesVivos());
         perception.setTareasPendientes(state.getTareasPendientes());
-        perception.setTripulantes(state.getTripulantes());
+        perception.setEnergia(state.getEnergiaActual());
+       
+        perception.setTripulantes(state.getTripulantes());   
         perception.setTareas(state.getTareas());
+        
 
-        // Retornar la percepción actualizada
+        
         return perception;
     }
 

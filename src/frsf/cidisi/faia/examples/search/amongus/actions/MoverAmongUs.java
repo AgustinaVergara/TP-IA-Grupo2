@@ -27,7 +27,7 @@ public class MoverAmongUs extends SearchAction{
 				//Actualizo energia, ubicación 
 				estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
 				estadoAgente.setUbicacion(nodo);
-				
+				estadoAgente.setNodosVecinos(estadoAgente.getNaveAgente().get(nodo));
 				break;
 			}
 		}

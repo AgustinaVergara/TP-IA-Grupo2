@@ -15,23 +15,8 @@ public class PerceptionAmongUs extends Perception {
     private int tripulantesVivos;
     private int tareasPendientes;
     private List<TareaAmongUs> tareas;
-    public List<TareaAmongUs> getTareas() {
-		return tareas;
-	}
-
-	public void setTareas(List<TareaAmongUs> tareas) {
-		this.tareas = tareas;
-	}
-
-	public List<Tripulante> getTripulantes() {
-		return tripulantes;
-	}
-
-	public void setTripulantes(List<Tripulante> tripulantes) {
-		this.tripulantes = tripulantes;
-	}
-
-	private List<Tripulante> tripulantes;
+    private int energia;
+    private List<Tripulante> tripulantes;
 
     public PerceptionAmongUs(Agent agent, Environment environment) {
         super(agent, environment);
@@ -62,6 +47,15 @@ public class PerceptionAmongUs extends Perception {
         this.tareasPendientes = amongUsEnvironmentState.getTareasPendientes();
         this.tripulantes = amongUsEnvironmentState.getTripulantes();
         this.tareas = amongUsEnvironmentState.getTareas();
+        this.energia = amongUsEnvironmentState.getEnergiaActual();
+    }
+
+    public int getEnergia() {
+        return energia;
+    }
+
+    public void setEnergia(int energia) {
+        this.energia = energia;
     }
 
     public Nodo getNodoActualAgente() {
@@ -104,6 +98,22 @@ public class PerceptionAmongUs extends Perception {
         this.tareasPendientes = tareasPendientes;
     }
 
+    public List<TareaAmongUs> getTareas() {
+        return tareas;
+    }
+
+    public void setTareas(List<TareaAmongUs> tareas) {
+        this.tareas = tareas;
+    }
+
+    public List<Tripulante> getTripulantes() {
+        return tripulantes;
+    }
+
+    public void setTripulantes(List<Tripulante> tripulantes) {
+        this.tripulantes = tripulantes;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -128,6 +138,7 @@ public class PerceptionAmongUs extends Perception {
         if (mapaCompleto != null) {
             str.append("Mapa completo: ").append(mapaCompleto).append("\n");
         }
+        str.append("Energia: ").append(energia).append("\n");
         return str.toString();
     }
 }

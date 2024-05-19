@@ -1,12 +1,11 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
 import java.util.*;
-
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 
 public class AgentStateAmongUs extends SearchBasedAgentState {
-    
+
     private Map<Nodo, List<Nodo>> naveAgente;
     private Nodo ubicacion;
     private Integer energia;
@@ -15,39 +14,26 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
     private Integer tareasPendientes;
     private Integer tripulantesVivos;
     private List<Tripulante> tripulantes;
+    private List<Nodo> nodosVecinos;
 
     public AgentStateAmongUs(Map<Nodo, List<Nodo>> naveAgente, Nodo ubicacion, Integer energia, Integer energiaInicial,
-            List<TareaAmongUs> tareas, Integer tareasPendientes, Integer tripulantesVivos,
-            List<Tripulante> tripulantes) {
-super();
-this.naveAgente = naveAgente;
-this.ubicacion = ubicacion;
-this.energia = energia;
-this.energiaInicial = energiaInicial;
-this.tareas = (tareas != null) ? new ArrayList<>(tareas) : new ArrayList<>();
-this.tareasPendientes = tareasPendientes;
-this.tripulantesVivos = tripulantesVivos;
-this.tripulantes = (tripulantes != null) ? new ArrayList<>(tripulantes) : new ArrayList<>();
-
-}
-
-
-
-    public AgentStateAmongUs() {
-        this.initState();
+                             List<TareaAmongUs> tareas, Integer tareasPendientes, Integer tripulantesVivos,
+                             List<Tripulante> tripulantes, List<Nodo> nodosVecinos) {
+        super();
+        this.naveAgente = new HashMap<>(naveAgente);
+        this.ubicacion = ubicacion;
+        this.energia = energia;
+        this.energiaInicial = energiaInicial;
+        this.tareas = new ArrayList<>(tareas);
+        this.tareasPendientes = tareasPendientes;
+        this.tripulantesVivos = tripulantesVivos;
+        this.tripulantes = new ArrayList<>(tripulantes);
+        this.nodosVecinos = new ArrayList<>(nodosVecinos);
     }
 
-    @Override
-    public void initState() {
-        this.naveAgente = new HashMap<>();
-        this.ubicacion = null; // o alguna ubicación inicial válida
-        this.energia = 100; // valor inicial de energía
-        this.energiaInicial = 100; // valor inicial de energía
-        this.tareas = new ArrayList<>();
-        this.tareasPendientes = 0;
-        this.tripulantesVivos = 0; // o algún valor inicial válido
-        this.tripulantes = new ArrayList<>();
-        
+    public AgentStateAmongUs() {
+        super();
+        this.initState();
     }
 
     @Override
@@ -62,23 +48,40 @@ this.tripulantes = (tripulantes != null) ? new ArrayList<>(tripulantes) : new Ar
                 Objects.equals(tareas, that.tareas) &&
                 Objects.equals(tareasPendientes, that.tareasPendientes) &&
                 Objects.equals(tripulantesVivos, that.tripulantesVivos) &&
-                Objects.equals(tripulantes, that.tripulantes);
-                
+                Objects.equals(tripulantes, that.tripulantes) &&
+                Objects.equals(nodosVecinos, that.nodosVecinos);
     }
 
     @Override
     public SearchBasedAgentState clone() {
-    	
+        Map<Nodo, List<Nodo>> clonedNaveAgente = new HashMap<>();
+        for (Map.Entry<Nodo, List<Nodo>> entry : this.naveAgente.entrySet()) {
+            clonedNaveAgente.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+
+        List<TareaAmongUs> clonedTareas = new ArrayList<>();
+        for (TareaAmongUs tarea : this.tareas) {
+            clonedTareas.add(new TareaAmongUs(tarea.getNombre()));
+        }
+
+        List<Tripulante> clonedTripulantes = new ArrayList<>();
+        for (Tripulante tripulante : this.tripulantes) {
+            Tripulante clonedTripulante = new Tripulante(tripulante.getId());
+            clonedTripulante.setEstaVivo(tripulante.getEstaVivo());
+            clonedTripulante.setCiclosParaMoverse(tripulante.getCiclosParaMoverse());
+            clonedTripulantes.add(clonedTripulante);
+        }
+
         return new AgentStateAmongUs(
-                new HashMap<>(this.naveAgente),
+                clonedNaveAgente,
                 this.ubicacion,
                 this.energia,
                 this.energiaInicial,
-                new ArrayList<>(this.tareas),
+                clonedTareas,
                 this.tareasPendientes,
                 this.tripulantesVivos,
-                new ArrayList<>(this.tripulantes)
-                
+                clonedTripulantes,
+                new ArrayList<>(this.nodosVecinos)
         );
     }
 
@@ -87,27 +90,24 @@ this.tripulantes = (tripulantes != null) ? new ArrayList<>(tripulantes) : new Ar
         PerceptionAmongUs percepcion = (PerceptionAmongUs) p;
 
         if (percepcion.getMapaCompleto() != null) {
-            // Copiar el mapa completo de la percepción al estado del agente
             this.naveAgente = new HashMap<>(percepcion.getMapaCompleto());
         }
 
-        // Actualizar la ubicación del agente
         this.setUbicacion(percepcion.getNodoActualAgente());
 
-        // Actualizar la información de los nodos adyacentes en el mapa del agente
         Nodo nodoActual = percepcion.getNodoActualAgente();
         List<Nodo> nodosVecinos = percepcion.getNodosVecinos();
         if (nodoActual != null && nodosVecinos != null) {
             this.naveAgente.put(nodoActual, new ArrayList<>(nodosVecinos));
+            this.nodosVecinos = new ArrayList<>(nodosVecinos);
         }
 
-        // Actualizar la cantidad de tripulantes vivos y tareas pendientes
         this.tripulantesVivos = percepcion.getTripulantesVivos();
         this.tareasPendientes = percepcion.getTareasPendientes();
+        this.tripulantes = new ArrayList<>(percepcion.getTripulantes());
+        this.tareas = new ArrayList<>(percepcion.getTareas());
+        this.energia = percepcion.getEnergia();
     }
-
-
-
 
     @Override
     public String toString() {
@@ -120,7 +120,21 @@ this.tripulantes = (tripulantes != null) ? new ArrayList<>(tripulantes) : new Ar
                 ", tareasPendientes=" + tareasPendientes +
                 ", tripulantesVivos=" + tripulantesVivos +
                 ", tripulantes=" + tripulantes +
+                ", nodosVecinos=" + nodosVecinos +
                 '}';
+    }
+
+    @Override
+    public void initState() {
+        this.naveAgente = new HashMap<>();
+        this.ubicacion = null;
+        this.energia = 2;
+        this.energiaInicial = 2;
+        this.tareas = new ArrayList<>();
+        this.tareasPendientes = 0;
+        this.tripulantesVivos = 0;
+        this.tripulantes = new ArrayList<>();
+        this.nodosVecinos = new ArrayList<>();
     }
 
     // Getters y Setters
@@ -189,6 +203,22 @@ this.tripulantes = (tripulantes != null) ? new ArrayList<>(tripulantes) : new Ar
         this.tripulantes = tripulantes;
     }
 
+    public List<Nodo> getNodosVecinos() {
+        return nodosVecinos;
+    }
+
+    public void setNodosVecinos(List<Nodo> nodosVecinos) {
+        this.nodosVecinos = nodosVecinos;
+    }
+
+    public List<Nodo> getNodosVecinos(Nodo nodo) {
+        return naveAgente.getOrDefault(nodo, new ArrayList<>());
+    }
+
+    public void setNodosVecinos(Nodo nodo, List<Nodo> nodosVecinos) {
+        this.naveAgente.put(nodo, nodosVecinos);
+    }
+
     public void setTareaRealizada(String nombreTarea, boolean realizada) {
         for (TareaAmongUs tarea : tareas) {
             if (tarea.getNombre().equals(nombreTarea)) {
@@ -197,17 +227,4 @@ this.tripulantes = (tripulantes != null) ? new ArrayList<>(tripulantes) : new Ar
             }
         }
     }
-
-    public List<Nodo> getNodosVecinos(Nodo nodo) {
-        // Verificar si el nodo está presente en el mapa de la nave
-        if (naveAgente.containsKey(nodo)) {
-            // Devolver la lista de nodos vecinos del nodo dado
-            return naveAgente.get(nodo);
-        } else {
-            // El nodo no está presente en el mapa, retornar una lista vacía
-            return new ArrayList<>();
-        }
-    }
-
-	
 }

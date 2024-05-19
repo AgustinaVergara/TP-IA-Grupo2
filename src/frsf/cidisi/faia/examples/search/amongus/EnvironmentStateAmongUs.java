@@ -45,7 +45,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
 
     // En este metodo configuro el estado inicial del juego
     public void initState() {
-        // Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
+       /* // Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
         nave = new HashMap<>();
         
         // Inicializar nodos
@@ -93,7 +93,21 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         nave.put(nodo19, new ArrayList<>(Arrays.asList(nodo17)));
         nave.put(nodo20, new ArrayList<>(Arrays.asList(nodo17, nodo21)));
         nave.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));
+        */
+    	nave = new HashMap<>();
         
+        // Inicializar nodos
+        nodo1 = new Nodo(1, "Habitacion1");
+        nodo2 = new Nodo(2, "Habitacion2");
+        nodo3 = new Nodo(3, "Habitacion3");
+        nodo4 = new Nodo(4, "Habitacion4");
+        
+        // Crear aristas
+        nave.put(nodo1, new ArrayList<>(Arrays.asList(nodo2, nodo3))); // Habitacion1 conectada con Habitacion2 y Habitacion3
+        nave.put(nodo2, new ArrayList<>(Arrays.asList(nodo1, nodo4))); // Habitacion2 conectada con Habitacion1 y Habitacion4
+        nave.put(nodo3, new ArrayList<>(Arrays.asList(nodo1)));         // Habitacion3 conectada con Habitacion1
+        nave.put(nodo4, new ArrayList<>(Arrays.asList(nodo2)));         // Habitacion4 conectada con Habitacion2
+    
         // Asignar la posición inicial del agente
         List<Nodo> allNodes = new ArrayList<>(nave.keySet());
         int randomNodeIndex = new Random().nextInt(allNodes.size());
@@ -103,7 +117,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         energiaInicial = 100;
         energiaActual = energiaInicial;
         tripulantesVivos = 6;
-        proximaVisionGlobal = 0;
+        proximaVisionGlobal = 1;
         tareasPendientes = 3;
         
         generarObjetivos(tripulantesVivos);
