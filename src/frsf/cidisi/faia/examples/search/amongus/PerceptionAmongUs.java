@@ -1,32 +1,67 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
 import java.util.List;
+import java.util.Map;
 
-import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
+import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.environment.Environment;
 
 public class PerceptionAmongUs extends Perception {
 
     private Nodo nodoActualAgente;
     private List<Nodo> nodosVecinos;
+    private Map<Nodo, List<Nodo>> mapaCompleto;
+    private int tripulantesVivos;
+    private int tareasPendientes;
+    private List<TareaAmongUs> tareas;
+    public List<TareaAmongUs> getTareas() {
+		return tareas;
+	}
+
+	public void setTareas(List<TareaAmongUs> tareas) {
+		this.tareas = tareas;
+	}
+
+	public List<Tripulante> getTripulantes() {
+		return tripulantes;
+	}
+
+	public void setTripulantes(List<Tripulante> tripulantes) {
+		this.tripulantes = tripulantes;
+	}
+
+	private List<Tripulante> tripulantes;
 
     public PerceptionAmongUs(Agent agent, Environment environment) {
         super(agent, environment);
     }
+
     public PerceptionAmongUs() {
-        super(); // Call the superclass constructor (optional)
+        super();
     }
 
     @Override
     public void initPerception(Agent agent, Environment environment) {
-    	EnvironmentAmongUs amongUsEnvironment = (EnvironmentAmongUs) environment;
-    	EnvironmentStateAmongUs amongUsEnvironmentState = amongUsEnvironment.getEnvironmentState();
-    	Nodo nodoActualAgente = amongUsEnvironmentState.getNodoActualAgente(); // Get agent's location
-    	List<Nodo> nodosVecinos = amongUsEnvironmentState.getNave().get(nodoActualAgente); // Get neighbors from the map
-    	this.nodoActualAgente = nodoActualAgente;
-    	this.nodosVecinos = nodosVecinos;
-        
+        EnvironmentAmongUs amongUsEnvironment = (EnvironmentAmongUs) environment;
+        EnvironmentStateAmongUs amongUsEnvironmentState = amongUsEnvironment.getEnvironmentState();
+
+        // Obtener la posición actual del agente desde el estado del entorno
+        this.nodoActualAgente = amongUsEnvironmentState.getNodoActualAgente();
+
+        // Obtener los nodos vecinos desde el mapa del entorno
+        this.nodosVecinos = amongUsEnvironmentState.getNodosVecinos(this.nodoActualAgente);
+
+        // Verificar si se debe pasar el mapa completo
+        if (amongUsEnvironmentState.getProximaVisionGlobal() == 0) {
+            this.mapaCompleto = amongUsEnvironmentState.getNave();
+        }
+
+        // Obtener la cantidad de tripulantes vivos y tareas pendientes
+        this.tripulantesVivos = amongUsEnvironmentState.getTripulantesVivos();
+        this.tareasPendientes = amongUsEnvironmentState.getTareasPendientes();
+        this.tripulantes = amongUsEnvironmentState.getTripulantes();
+        this.tareas = amongUsEnvironmentState.getTareas();
     }
 
     public Nodo getNodoActualAgente() {
@@ -45,30 +80,54 @@ public class PerceptionAmongUs extends Perception {
         this.nodosVecinos = nodosVecinos;
     }
 
-    // Access information directly from neighboring nodes
-    public List<Tripulante> getTripulantesEnNodo(Nodo nodo) {
-        return nodo.getListaTripulantes();
+    public Map<Nodo, List<Nodo>> getMapaCompleto() {
+        return mapaCompleto;
     }
 
-    public TareaAmongUs getTareaEnNodo(Nodo nodo) {
-        return nodo.getTarea();
+    public void setMapaCompleto(Map<Nodo, List<Nodo>> mapaCompleto) {
+        this.mapaCompleto = mapaCompleto;
     }
 
-    public String getNombreNodo(Nodo nodo) {
-        return nodo.getNombre();
+    public int getTripulantesVivos() {
+        return tripulantesVivos;
+    }
+
+    public void setTripulantesVivos(int tripulantesVivos) {
+        this.tripulantesVivos = tripulantesVivos;
+    }
+
+    public int getTareasPendientes() {
+        return tareasPendientes;
+    }
+
+    public void setTareasPendientes(int tareasPendientes) {
+        this.tareasPendientes = tareasPendientes;
     }
 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Estado percepcion Among Us\n");
-        str.append("Nodo actual: ").append(nodoActualAgente.getId()).append(" - ").append(getNombreNodo(nodoActualAgente)).append("\n");
-        str.append("Nodos vecinos: ");
-        for (Nodo nodo : nodosVecinos) {
-            str.append(nodo.getId()).append(" - ").append(getNombreNodo(nodo)).append(", ");
+        str.append("Estado percepción Among Us\n");
+        if (nodoActualAgente != null) {
+            str.append("Nodo actual: ").append(nodoActualAgente.getId()).append(" - ").append(nodoActualAgente.getNombre()).append("\n");
+        } else {
+            str.append("Nodo actual: null\n");
         }
-        str.setLength(str.length() - 2); // Remove trailing comma and space
+        str.append("Nodos vecinos: ");
+        if (nodosVecinos != null) {
+            for (Nodo nodo : nodosVecinos) {
+                str.append(nodo.getId()).append(" - ").append(nodo.getNombre()).append(", ");
+            }
+            str.setLength(str.length() - 2); // Eliminar la última coma y espacio
+        } else {
+            str.append("null");
+        }
         str.append("\n");
+        str.append("Tripulantes vivos: ").append(tripulantesVivos).append("\n");
+        str.append("Tareas pendientes: ").append(tareasPendientes).append("\n");
+        if (mapaCompleto != null) {
+            str.append("Mapa completo: ").append(mapaCompleto).append("\n");
+        }
         return str.toString();
     }
 }

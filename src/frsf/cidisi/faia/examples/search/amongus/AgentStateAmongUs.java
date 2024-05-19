@@ -1,216 +1,213 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
-import frsf.cidisi.faia.examples.search.pacman.PacmanAgentState;
 
 public class AgentStateAmongUs extends SearchBasedAgentState {
-	
-	private Map<Nodo, List<Nodo>> naveAgente;
-	private Nodo ubicacion;
-	private Integer energia;
-	private Integer energiaInicial;
-	private List<TareaAmongUs> tareas;
-	private Integer tareasPendientes;
-	private Integer tripulantesVivos;
-	private List<Tripulante> tripulantes;
-	private List<Nodo> nodosAdyacentes;
-	
+    
+    private Map<Nodo, List<Nodo>> naveAgente;
+    private Nodo ubicacion;
+    private Integer energia;
+    private Integer energiaInicial;
+    private List<TareaAmongUs> tareas;
+    private Integer tareasPendientes;
+    private Integer tripulantesVivos;
+    private List<Tripulante> tripulantes;
 
-	public AgentStateAmongUs(Map<Nodo, List<Nodo>> naveAgente, Nodo ubicacion, Integer energia, Integer energiaInicial,
-			List<TareaAmongUs> tareas, Integer tareasPendientes, Integer tripulantesVivos,
-			List<Tripulante> tripulantes, List<Nodo> nodosAdyacentes) {
-		super();
-		this.naveAgente = naveAgente;
-		this.ubicacion = ubicacion;
-		this.energia = energia;
-		this.energiaInicial = energiaInicial;
-		this.tareas = tareas;
-		this.tareasPendientes = tareasPendientes;
-		this.tripulantesVivos = tripulantesVivos;
-		this.tripulantes = tripulantes;
-		this.nodosAdyacentes = nodosAdyacentes;
-	}
+    public AgentStateAmongUs(Map<Nodo, List<Nodo>> naveAgente, Nodo ubicacion, Integer energia, Integer energiaInicial,
+            List<TareaAmongUs> tareas, Integer tareasPendientes, Integer tripulantesVivos,
+            List<Tripulante> tripulantes) {
+super();
+this.naveAgente = naveAgente;
+this.ubicacion = ubicacion;
+this.energia = energia;
+this.energiaInicial = energiaInicial;
+this.tareas = (tareas != null) ? new ArrayList<>(tareas) : new ArrayList<>();
+this.tareasPendientes = tareasPendientes;
+this.tripulantesVivos = tripulantesVivos;
+this.tripulantes = (tripulantes != null) ? new ArrayList<>(tripulantes) : new ArrayList<>();
 
-	public AgentStateAmongUs() {
-		//VER ESTE QUE TIENE QUE TENER PORQUE LO NECESITAMOS PARA LA CLASE AGENT AMONG US SIN ARGUMENTOS 
-		// TODO Auto-generated constructor stub
-		this.initState();
-	}
-	/*
-	 * 
-	
-	private List<Tripulante> tripulantes;
-	private List<Nodo> nodosAdyacentes;*/
+}
 
-	@Override
-	public boolean equals(Object obj) {
-		//A chequear. Esto seguramente esta mal
-		
-		AgentStateAmongUs estadoAComparar = (AgentStateAmongUs) obj;
-		
-		if(estadoAComparar.getNaveAgente() != this.naveAgente) {
-			return false;
-		}
-		if(estadoAComparar.getUbicacion() != this.ubicacion) {
-			return false;
-		}
-		if(estadoAComparar.getEnergia() != this.energia) {
-			return false;
-		}
-		if(estadoAComparar.getEnergiaInicial() != this.energiaInicial) {
-			return false;
-		}
-		if(estadoAComparar.getTareas()  != this.tareas) {
-			return false;
-		}
-		if(estadoAComparar.getTareasPendientes() != this.tareasPendientes) {
-			return false;
-		}
-		if(estadoAComparar.getTripulantesVivos() != this.tripulantesVivos) {
-			return false;
-		}
-		if(estadoAComparar.getTripulantes() != this.tripulantes) {
-			return false;
-		}
-		if(estadoAComparar.getNodosAdyacentes() != this.nodosAdyacentes) {
-			return false;
-		}
-		
-		return true;
-	}
 
-	@Override
-	public SearchBasedAgentState clone() {
-		
-		AgentStateAmongUs nuevoEstado = new AgentStateAmongUs(this.naveAgente, this.ubicacion, this.energia, this.energiaInicial,
-				this.tareas, this.tareasPendientes, this.tripulantesVivos,  this.tripulantes, this.nodosAdyacentes);
-		
-		return nuevoEstado; 
-	}
 
-	@Override
-	public void updateState(Perception p) {
-	    // Convertir la percepción a PerceptionAmongUs
-	    PerceptionAmongUs percepcion = (PerceptionAmongUs) p;
+    public AgentStateAmongUs() {
+        this.initState();
+    }
 
-	    // Actualizar la ubicación actual del agente
-	    this.setUbicacion(percepcion.getNodoActualAgente());
+    @Override
+    public void initState() {
+        this.naveAgente = new HashMap<>();
+        this.ubicacion = null; // o alguna ubicación inicial válida
+        this.energia = 100; // valor inicial de energía
+        this.energiaInicial = 100; // valor inicial de energía
+        this.tareas = new ArrayList<>();
+        this.tareasPendientes = 0;
+        this.tripulantesVivos = 0; // o algún valor inicial válido
+        this.tripulantes = new ArrayList<>();
+        
+    }
 
-	    // Obtener los nodos vecinos de la ubicación actual
-	    List<Nodo> nodosVecinos = percepcion.getNodosVecinos();
-	    //Agus: pruebo guardar estos nodos vecinos para usarlos en el mover
-	    this.nodosAdyacentes = percepcion.getNodosVecinos();
-	    
-	    // Recorrer los nodos vecinos y actualizar su información en la estructura `naveAgente`
-	    for (Nodo nodoVecino : nodosVecinos) {
-	        // Si el nodo vecino ya existe en la estructura `naveAgente`, actualizar su información
-	        if (this.naveAgente.containsKey(nodoVecino)) {
-	            // Obtener la información actual del nodo vecino de la estructura `naveAgente`
-	            Nodo nodoVecinoEnNaveAgente = (Nodo) this.naveAgente.get(nodoVecino);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        AgentStateAmongUs that = (AgentStateAmongUs) obj;
+        return Objects.equals(naveAgente, that.naveAgente) &&
+                Objects.equals(ubicacion, that.ubicacion) &&
+                Objects.equals(energia, that.energia) &&
+                Objects.equals(energiaInicial, that.energiaInicial) &&
+                Objects.equals(tareas, that.tareas) &&
+                Objects.equals(tareasPendientes, that.tareasPendientes) &&
+                Objects.equals(tripulantesVivos, that.tripulantesVivos) &&
+                Objects.equals(tripulantes, that.tripulantes);
+                
+    }
 
-	      // Actualizar la información del nodo vecino en la estructura `naveAgente` utilizando la información de la percepción
-	            nodoVecinoEnNaveAgente.setListaTripulantes(percepcion.getTripulantesEnNodo(nodoVecino));
-	            nodoVecinoEnNaveAgente.setTarea(percepcion.getTareaEnNodo(nodoVecino));
-	        }
-	    }
-	}
+    @Override
+    public SearchBasedAgentState clone() {
+    	
+        return new AgentStateAmongUs(
+                new HashMap<>(this.naveAgente),
+                this.ubicacion,
+                this.energia,
+                this.energiaInicial,
+                new ArrayList<>(this.tareas),
+                this.tareasPendientes,
+                this.tripulantesVivos,
+                new ArrayList<>(this.tripulantes)
+                
+        );
+    }
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void updateState(Perception p) {
+        PerceptionAmongUs percepcion = (PerceptionAmongUs) p;
 
-	@Override
-	public void initState() {
-		// TODO Auto-generated method stub
-		
-	}
+        if (percepcion.getMapaCompleto() != null) {
+            // Copiar el mapa completo de la percepción al estado del agente
+            this.naveAgente = new HashMap<>(percepcion.getMapaCompleto());
+        }
 
-	public Map<Nodo, List<Nodo>> getNaveAgente() {
-		return naveAgente;
-	}
+        // Actualizar la ubicación del agente
+        this.setUbicacion(percepcion.getNodoActualAgente());
 
-	public void setNaveAgente(Map<Nodo, List<Nodo>> naveAgente) {
-		this.naveAgente = naveAgente;
-	}
+        // Actualizar la información de los nodos adyacentes en el mapa del agente
+        Nodo nodoActual = percepcion.getNodoActualAgente();
+        List<Nodo> nodosVecinos = percepcion.getNodosVecinos();
+        if (nodoActual != null && nodosVecinos != null) {
+            this.naveAgente.put(nodoActual, new ArrayList<>(nodosVecinos));
+        }
 
-	public Nodo getUbicacion() {
-		return ubicacion;
-	}
+        // Actualizar la cantidad de tripulantes vivos y tareas pendientes
+        this.tripulantesVivos = percepcion.getTripulantesVivos();
+        this.tareasPendientes = percepcion.getTareasPendientes();
+    }
 
-	public void setUbicacion(Nodo ubicacion) {
-		this.ubicacion = ubicacion;
-	}
 
-	public Integer getEnergia() {
-		return energia;
-	}
 
-	public void setEnergia(Integer energia) {
-		this.energia = energia;
-	}
 
-	public Integer getEnergiaInicial() {
-		return energiaInicial;
-	}
+    @Override
+    public String toString() {
+        return "AgentStateAmongUs{" +
+                "naveAgente=" + naveAgente +
+                ", ubicacion=" + ubicacion +
+                ", energia=" + energia +
+                ", energiaInicial=" + energiaInicial +
+                ", tareas=" + tareas +
+                ", tareasPendientes=" + tareasPendientes +
+                ", tripulantesVivos=" + tripulantesVivos +
+                ", tripulantes=" + tripulantes +
+                '}';
+    }
 
-	public void setEnergiaInicial(Integer energiaInicial) {
-		this.energiaInicial = energiaInicial;
-	}
+    // Getters y Setters
 
-	public List<TareaAmongUs> getTareas() {
-		return tareas;
-	}
+    public Map<Nodo, List<Nodo>> getNaveAgente() {
+        return naveAgente;
+    }
 
-	public void setTareas(List<TareaAmongUs> tareas) {
-		this.tareas = tareas;
-	}
+    public void setNaveAgente(Map<Nodo, List<Nodo>> naveAgente) {
+        this.naveAgente = naveAgente;
+    }
 
-	public Integer getTareasPendientes() {
-		return tareasPendientes;
-	}
+    public Nodo getUbicacion() {
+        return ubicacion;
+    }
 
-	public void setTareasPendientes(Integer tareasPendientes) {
-		this.tareasPendientes = tareasPendientes;
-	}
+    public void setUbicacion(Nodo ubicacion) {
+        this.ubicacion = ubicacion;
+    }
 
-	public Integer getTripulantesVivos() {
-		return tripulantesVivos;
-	}
+    public Integer getEnergia() {
+        return energia;
+    }
 
-	public void setTripulantesVivos(Integer tripulantesVivos) {
-		this.tripulantesVivos = tripulantesVivos;
-	}
+    public void setEnergia(Integer energia) {
+        this.energia = energia;
+    }
 
-	public List<Tripulante> getTripulantes() {
-		return tripulantes;
-	}
+    public Integer getEnergiaInicial() {
+        return energiaInicial;
+    }
 
-	public void setTripulantes(List<Tripulante> tripulantes) {
-		this.tripulantes = tripulantes;
-	}
+    public void setEnergiaInicial(Integer energiaInicial) {
+        this.energiaInicial = energiaInicial;
+    }
 
-	public List<Nodo> getNodosAdyacentes() {
-		return nodosAdyacentes;
-	}
+    public List<TareaAmongUs> getTareas() {
+        return tareas;
+    }
 
-	public void setNodosAdyacentes(List<Nodo> nodosAdyacentes) {
-		this.nodosAdyacentes = nodosAdyacentes;
-	}
-	
-	//Setear una tarea en particular como realizada o no 
-	public void setTareaRealizada(String nombreTarea, boolean realizada) {
+    public void setTareas(List<TareaAmongUs> tareas) {
+        this.tareas = tareas;
+    }
+
+    public Integer getTareasPendientes() {
+        return tareasPendientes;
+    }
+
+    public void setTareasPendientes(Integer tareasPendientes) {
+        this.tareasPendientes = tareasPendientes;
+    }
+
+    public Integer getTripulantesVivos() {
+        return tripulantesVivos;
+    }
+
+    public void setTripulantesVivos(Integer tripulantesVivos) {
+        this.tripulantesVivos = tripulantesVivos;
+    }
+
+    public List<Tripulante> getTripulantes() {
+        return tripulantes;
+    }
+
+    public void setTripulantes(List<Tripulante> tripulantes) {
+        this.tripulantes = tripulantes;
+    }
+
+    public void setTareaRealizada(String nombreTarea, boolean realizada) {
         for (TareaAmongUs tarea : tareas) {
             if (tarea.getNombre().equals(nombreTarea)) {
                 tarea.setRealizada(realizada);
-                break; // Salir del bucle una vez que la tarea ha sido encontrada y modificada
+                break;
             }
         }
     }
+
+    public List<Nodo> getNodosVecinos(Nodo nodo) {
+        // Verificar si el nodo está presente en el mapa de la nave
+        if (naveAgente.containsKey(nodo)) {
+            // Devolver la lista de nodos vecinos del nodo dado
+            return naveAgente.get(nodo);
+        } else {
+            // El nodo no está presente en el mapa, retornar una lista vacía
+            return new ArrayList<>();
+        }
+    }
+
 	
 }

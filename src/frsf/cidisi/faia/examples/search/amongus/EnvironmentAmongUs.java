@@ -1,79 +1,89 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
-import frsf.cidisi.faia.examples.search.pacman.PacmanEnvironmentState;
 
-public class EnvironmentAmongUs extends Environment{
-	
-	
-	public EnvironmentAmongUs() {
-		EnvironmentStateAmongUs environment = new EnvironmentStateAmongUs(6);
-		this.environmentState = environment;
-	}
-	
-	@Override
+public class EnvironmentAmongUs extends Environment {
+
+    public EnvironmentAmongUs() {
+        EnvironmentStateAmongUs environment = new EnvironmentStateAmongUs();
+        this.environmentState = environment;
+    }
+
+    @Override
     public EnvironmentStateAmongUs getEnvironmentState() {
         return (EnvironmentStateAmongUs) super.getEnvironmentState();
     }
 
-	
-	@Override
-	public Perception getPercept() {
-		
-		//aca controlamos si es la percepcion general o los adyacentes nada más 
-		//en la percepcion general le pasamos el mapa entero y el se lo copia|
-		
-		this.ciclosTripulantes();
-		PerceptionAmongUs perception = new PerceptionAmongUs();
-		
-		EnvironmentStateAmongUs state = getEnvironmentState();
+    @Override
+    public Perception getPercept() {
+        // Actualizar el estado de los tripulantes
+        this.ciclosTripulantes();
 
-	    // Obtener el nodo actual del agente
-	    Nodo nodoActual = null;
-	    for (Nodo nodo : state.getNave().keySet()) {
-	        if (nodo.getId() == state.getNodoActualAgente()) {
-	            nodoActual = nodo;
-	            break;
-	        }
-	    }
+        PerceptionAmongUs perception = new PerceptionAmongUs();
+        EnvironmentStateAmongUs state = getEnvironmentState();
 
-	    // Establecer los nodos vecinos
-	    perception.setNodosVecinos(state.getNave().get(nodoActual));
+        // Obtener el nodo actual del agente
+        Nodo nodoActual = state.getNodoActualAgente();
+        perception.setNodoActualAgente(nodoActual);
 
-	    // Establecer el nodo actual del agente
-	    perception.setNodoActualAgente(nodoActual);
+        // Establecer los nodos vecinos
+        if (nodoActual != null) {
+            perception.setNodosVecinos(state.getNave().get(nodoActual));
+        }
 
-	    // Retornar la percepción actualizada
-	    return perception;
-	}
-	
-	private void ciclosTripulantes() {//agregar el avance de los ciclso hasta percepcion magica
-		
-	    for (Nodo nodo : ((EnvironmentStateAmongUs)this.environmentState).getNave().keySet()) {
-	        List<Tripulante> tripulantes = nodo.getListaTripulantes();
-	        
-	        for (Tripulante tripulante : tripulantes) {
-	            if (tripulante.getCiclosParaMoverse() > 0) { // Si todavía no se tiene que mover, resto uno
-	                tripulante.setCiclosParaMoverse(tripulante.getCiclosParaMoverse() - 1);
-	            } else { // Si se tiene que mover
-	                List<Nodo> adyacentes = ((EnvironmentStateAmongUs)this.environmentState).getNave().get(nodo);
-	                // Mover el tripulante a un nodo adyacente aleatorio
-	                int randomIndex = new Random().nextInt(adyacentes.size());
-	                Nodo nuevoNodo = adyacentes.get(randomIndex);
+        // Verificar si se debe pasar el mapa completo
+        if (state.getProximaVisionGlobal() == 0) {
+            perception.setMapaCompleto(state.getNave());
+        }
 
-	                // Quitar el tripulante del nodo actual y agregarlo al nuevo nodo
-	                nodo.getListaTripulantes().remove(tripulante);
-	                nuevoNodo.getListaTripulantes().add(tripulante);
+        // Establecer la cantidad de tripulantes vivos y tareas pendientes
+        perception.setTripulantesVivos(state.getTripulantesVivos());
+        perception.setTareasPendientes(state.getTareasPendientes());
+        perception.setTripulantes(state.getTripulantes());
+        perception.setTareas(state.getTareas());
 
-	                // Asignar el nuevo nodo como nodo actual del tripulante
-	                tripulante.setCiclosParaMoverse(new Random().nextInt(3) + 1); // Setear un random entre 1 y 3 para los ciclos
-	            }
-	        }
-	    }
-	}
+        // Retornar la percepción actualizada
+        return perception;
+    }
 
+    private void ciclosTripulantes() {
+        EnvironmentStateAmongUs state = (EnvironmentStateAmongUs) this.environmentState;
+
+        // Reducir el atributo proximaVisionGlobal
+        if (state.getProximaVisionGlobal() > 0) {
+            state.setProximaVisionGlobal(state.getProximaVisionGlobal() - 1);
+        } else {
+            state.setProximaVisionGlobal(new Random().nextInt(3) + 2);
+        }
+
+        for (Nodo nodo : state.getNave().keySet()) {
+            Iterator<Tripulante> iterator = nodo.getListaTripulantes().iterator();
+            while (iterator.hasNext()) {
+                Tripulante tripulante = iterator.next();
+                if (tripulante.getCiclosParaMoverse() > 0) {
+                    tripulante.setCiclosParaMoverse(tripulante.getCiclosParaMoverse() - 1);
+                } else {
+                    List<Nodo> adyacentes = state.getNave().get(nodo);
+                    if (!adyacentes.isEmpty()) {
+                        int randomIndex = new Random().nextInt(adyacentes.size());
+                        Nodo nuevoNodo = adyacentes.get(randomIndex);
+                        iterator.remove(); // Eliminar el tripulante del nodo actual
+                        nuevoNodo.getListaTripulantes().add(tripulante); // Agregar el tripulante al nuevo nodo
+                        tripulante.setCiclosParaMoverse(new Random().nextInt(3) + 1);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return environmentState.toString();
+    }
 }

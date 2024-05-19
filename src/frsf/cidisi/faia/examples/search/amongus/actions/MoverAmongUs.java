@@ -22,15 +22,12 @@ public class MoverAmongUs extends SearchAction{
 		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) s;
 		
 		//Como nodoSiguiente es un int hago un for sobre los nodos adyacente comparando los id cuando encuentre el que coincide hago el movimiento
-		for(Nodo nodo : estadoAgente.getNodosAdyacentes()) {
+		for(Nodo nodo : estadoAgente.getNodosVecinos(estadoAgente.getUbicacion())) {
 			if((int)nodo.getId() == this.nodoSiguiente) {
 				//Actualizo energia, ubicación 
 				estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
 				estadoAgente.setUbicacion(nodo);
-				//Ver si tambien tengo que actualizar nodos adyacentes y si se hace así
-				estadoAgente.setNodosAdyacentes(estadoAgente.getNaveAgente().get(nodo));
-	
-				//Para que no siga buscando coincidencias
+				
 				break;
 			}
 		}
@@ -53,7 +50,7 @@ public class MoverAmongUs extends SearchAction{
 		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) ast;
 		EnvironmentStateAmongUs estadoAmbiente = (EnvironmentStateAmongUs)est;
 		
-		for(Nodo nodo : estadoAgente.getNodosAdyacentes()) {
+		for(Nodo nodo : estadoAgente.getNodosVecinos(estadoAgente.getUbicacion())) {
 			if((int)nodo.getId() == this.nodoSiguiente) {
 				
 				estadoAmbiente.setEnergiaActual(estadoAgente.getEnergia() - 1);
