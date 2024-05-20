@@ -18,5 +18,9 @@ public class ObjetivoAmongUs extends GoalTest {
 	    }
 	}
 
-
+	 @Override
+	    public String toString() {
+	        return "ObjetivoAmongUs: Evaluates if the goal state is achieved based on the conditions: " +
+	               "all crew members are dead, all tasks are completed, and energy is non-negative.";
+	    }
 }

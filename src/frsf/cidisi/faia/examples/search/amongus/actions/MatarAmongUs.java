@@ -18,15 +18,20 @@ public class MatarAmongUs extends SearchAction{
 		//Si quedan tripulantes vivos y hay tripulantes en la habitacion
 		if(estadoAgente.getTripulantesVivos() > 0 && estadoAgente.getUbicacion().getListaTripulantes().size() != 0) {
 			Tripulante tripulanteAMatar = estadoAgente.getUbicacion().getListaTripulantes().get(0);
-			//System.out.println("mate un tipo");
-			estadoAgente.setTripulantesVivos(estadoAgente.getTripulantesVivos()-1);
+			
+			
+			int aux = estadoAgente.getTripulantesVivos() - 1;
+			
+			estadoAgente.setTripulantesVivos(aux);
+			
+			tripulanteAMatar.setEstaVivo(false);
 			estadoAgente.getUbicacion().getListaTripulantes().remove(tripulanteAMatar);
+			estadoAgente.getTripulantes().remove(tripulanteAMatar);
 			estadoAgente.setEnergia(estadoAgente.getEnergia()-1);
-			//Deberia poner en false el atributo estaVivo del tripulante? para mi ahora no tiene mucho sentido porque directamente
-			//lo estoy sacando de la lista 
+			return estadoAgente;
 		}
 		
-		return estadoAgente;
+		return null;
 	}
 
 	@Override

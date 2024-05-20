@@ -18,13 +18,16 @@ public class SabotearAmongUs extends SearchAction {
 			//En el nodo de ubicacion del agente pongo la tarea realizada
 			//System.out.println("rompi la maquina");
 			estadoAgente.getUbicacion().getTarea().setRealizada(true);
+			int aux = estadoAgente.getTareasPendientes() - 1;
 			estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
-			estadoAgente.setTareasPendientes(estadoAgente.getTareasPendientes() - 1);
+			estadoAgente.setTareasPendientes(aux);
 			//En la lista de tareas del agente seteo la tarea como realizada
 			estadoAgente.setTareaRealizada(estadoAgente.getUbicacion().getTarea().getNombre(), true);
 			
+			return estadoAgente;
 		}
-		return estadoAgente;
+		;
+		return null;
 	}
 
 	@Override

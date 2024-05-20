@@ -57,11 +57,12 @@ public class MoverAmongUs extends SearchAction{
 				estadoAmbiente.setEnergiaActual(estadoAgente.getEnergia() - 1);
 				estadoAmbiente.setNodoActualAgente(nodo);
 				//Para que no siga buscando coincidencias
-				break;
+				return estadoAmbiente;
+				
 			}
 		}
 		
-		return estadoAmbiente;
+		return null;
 	}
 
 	@Override
