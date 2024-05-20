@@ -19,6 +19,7 @@ public class SabotearAmongUs extends SearchAction {
 			//System.out.println("rompi la maquina");
 			estadoAgente.getUbicacion().getTarea().setRealizada(true);
 			int aux = estadoAgente.getTareasPendientes() - 1;
+			System.out.println(aux);
 			estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
 			estadoAgente.setTareasPendientes(aux);
 			//En la lista de tareas del agente seteo la tarea como realizada
@@ -44,6 +45,7 @@ public class SabotearAmongUs extends SearchAction {
 		
 		if(estadoAgente.getUbicacion().getTarea() != null) {
 			estadoAmbiente.setEnergiaActual(estadoAmbiente.getEnergiaActual() - 1);
+			estadoAmbiente.setTareasPendientes(estadoAmbiente.getTareasPendientes() -1 );
 		}
 		
 		return estadoAmbiente;

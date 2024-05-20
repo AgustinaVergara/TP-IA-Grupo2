@@ -29,11 +29,11 @@ public class MoverAmongUs extends SearchAction{
 				estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
 				estadoAgente.setUbicacion(nodo);
 				estadoAgente.setNodosVecinos(estadoAgente.getNaveAgente().get(nodo));
-				break;
+				return estadoAgente;
 			}
 		}
 		
-		return estadoAgente;
+		return null;
 	}
 
 	@Override

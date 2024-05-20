@@ -30,14 +30,15 @@ public class AgentAmongUs extends SearchBasedAgent {
 
         // Create the operators
         Vector<SearchAction> operators = new Vector<SearchAction>();
-
+        
+        operators.addElement(new MatarAmongUs());
+        operators.addElement(new SabotearAmongUs());
         // Use instances of the generic move action, so it is not necessary to create a class for each movement
         for (int i = 1; i <= 4; i++) {
             operators.addElement(new MoverAmongUs(i));
         }
 
-        operators.addElement(new SabotearAmongUs());
-        operators.addElement(new MatarAmongUs());
+       
         
         // Create the Problem which the Among Us will resolve
         Problem problem = new Problem(goal, (AgentStateAmongUs) amongUsState, operators);

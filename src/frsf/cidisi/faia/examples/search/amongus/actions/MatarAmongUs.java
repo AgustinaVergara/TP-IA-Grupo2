@@ -26,7 +26,7 @@ public class MatarAmongUs extends SearchAction{
 			
 			tripulanteAMatar.setEstaVivo(false);
 			estadoAgente.getUbicacion().getListaTripulantes().remove(tripulanteAMatar);
-			estadoAgente.getTripulantes().remove(tripulanteAMatar);
+			estadoAgente.getTripulantes().remove(0);
 			estadoAgente.setEnergia(estadoAgente.getEnergia()-1);
 			return estadoAgente;
 		}

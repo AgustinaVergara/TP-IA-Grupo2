@@ -49,33 +49,16 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 
     @Override
     public SearchBasedAgentState clone() {
-        Map<Nodo, List<Nodo>> clonedNaveAgente = new HashMap<>();
-        for (Map.Entry<Nodo, List<Nodo>> entry : this.naveAgente.entrySet()) {
-            clonedNaveAgente.put(entry.getKey(), new ArrayList<>(entry.getValue()));
-        }
-
-        List<TareaAmongUs> clonedTareas = new ArrayList<>();
-        for (TareaAmongUs tarea : this.tareas) {
-            clonedTareas.add(new TareaAmongUs(tarea.getNombre()));
-        }
-
-        List<Tripulante> clonedTripulantes = new ArrayList<>();
-        for (Tripulante tripulante : this.tripulantes) {
-            Tripulante clonedTripulante = new Tripulante(tripulante.getId());
-            clonedTripulante.setEstaVivo(tripulante.getEstaVivo());
-            clonedTripulante.setCiclosParaMoverse(tripulante.getCiclosParaMoverse());
-            clonedTripulantes.add(clonedTripulante);
-        }
 
         return new AgentStateAmongUs(
-                clonedNaveAgente,
+        		new HashMap<> (this.naveAgente),
                 this.ubicacion,
                 this.energia,
                 this.energiaInicial,
-                clonedTareas,
+                new ArrayList<>(this.tareas),
                 this.tareasPendientes,
                 this.tripulantesVivos,
-                clonedTripulantes,
+                new ArrayList<>(this.tripulantes),
                 new ArrayList<>(this.nodosVecinos)
         );
     }
