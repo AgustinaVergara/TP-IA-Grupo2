@@ -34,5 +34,10 @@ public class TareaAmongUs {
                 '}';
     }
     
+    public TareaAmongUs clone() {
+        TareaAmongUs cloned = new TareaAmongUs(this.nombre);
+        cloned.setRealizada(this.realizada);
+        return cloned;
+    }
 }
 

@@ -2,7 +2,7 @@ package frsf.cidisi.faia.examples.search.amongus;
 
 import java.util.Random;
 
-public class Tripulante {
+public class Tripulante implements Cloneable {
     
     private Integer id;
     private Boolean estaVivo;
@@ -11,9 +11,7 @@ public class Tripulante {
     public Tripulante(Integer id) {
         this.id = id;
         this.estaVivo = true;
-        
-        Random random = new Random();
-        this.ciclosParaMoverse = random.nextInt(4);
+        this.ciclosParaMoverse = new Random().nextInt(4);
     }
     
     public Integer getId() {
@@ -47,5 +45,12 @@ public class Tripulante {
                 ", estaVivo=" + estaVivo +
                 ", ciclosParaMoverse=" + ciclosParaMoverse +
                 '}';
+    }
+    
+    public Tripulante clone() {
+        Tripulante cloned = new Tripulante(this.id);
+        cloned.setEstaVivo(this.estaVivo);
+        cloned.setCiclosParaMoverse(this.ciclosParaMoverse);
+        return cloned;
     }
 }

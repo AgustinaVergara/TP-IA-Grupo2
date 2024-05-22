@@ -1,5 +1,7 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,31 +32,52 @@ public class EnvironmentAmongUs extends Environment {
 
         // Obtener el nodo actual del agente
         Nodo nodoActual = state.getNodoActualAgente();
-        perception.setNodoActualAgente(nodoActual);
+        perception.setNodoActualAgente(nodoActual.clone());
 
         // Establecer los nodos vecinos
         if (nodoActual != null) {
-        	
-            perception.setNodosVecinos(state.getNave().get(nodoActual));
+            List<Nodo> nodosVecinos = new ArrayList<>();
+            for (Nodo neighbor : state.getNave().getOrDefault(nodoActual, new ArrayList<>())) {
+                nodosVecinos.add(neighbor.clone());
+            }
+            perception.setNodosVecinos(nodosVecinos);
         }
 
         // Verificar si se debe pasar el mapa completo
         if (state.getProximaVisionGlobal() == 0) {
-            perception.setMapaCompleto(state.getNave()); 
+            Map<Nodo, List<Nodo>> mapaCompleto = new HashMap<>();
+            for (Map.Entry<Nodo, List<Nodo>> entry : state.getNave().entrySet()) {
+                Nodo key = entry.getKey().clone();
+                List<Nodo> value = new ArrayList<>();
+                for (Nodo neighbor : entry.getValue()) {
+                    value.add(neighbor.clone());
+                }
+                mapaCompleto.put(key, value);
+            }
+            perception.setMapaCompleto(mapaCompleto);
         }
 
         // Establecer la cantidad de tripulantes vivos y tareas pendientes
         perception.setTripulantesVivos(state.getTripulantesVivos());
         perception.setTareasPendientes(state.getTareasPendientes());
         perception.setEnergia(state.getEnergiaActual());
-       
-        perception.setTripulantes(state.getTripulantes());   
-        perception.setTareas(state.getTareas());
-        
 
-        
+        // Clonar la lista de tripulantes y tareas
+        List<Tripulante> tripulantes = new ArrayList<>();
+        for (Tripulante tripulante : state.getTripulantes()) {
+            tripulantes.add(tripulante.clone());
+        }
+        perception.setTripulantes(tripulantes);
+
+        List<TareaAmongUs> tareas = new ArrayList<>();
+        for (TareaAmongUs tarea : state.getTareas()) {
+            tareas.add(tarea.clone());
+        }
+        perception.setTareas(tareas);
+
         return perception;
     }
+
 
     private void ciclosTripulantes() {
         EnvironmentStateAmongUs state = (EnvironmentStateAmongUs) this.environmentState;

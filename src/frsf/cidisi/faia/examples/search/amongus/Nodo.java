@@ -2,7 +2,7 @@ package frsf.cidisi.faia.examples.search.amongus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 public class Nodo {
 	
@@ -55,6 +55,17 @@ public class Nodo {
 		this.id = id;
 	}
 	
-	
+	public Nodo clone() {
+	    Nodo cloned = new Nodo(this.id, this.nombre);
+	    List<Tripulante> clonedTripulantes = new ArrayList<>();
+	    for (Tripulante tripulante : this.listaTripulantes) {
+	        clonedTripulantes.add(tripulante.clone());
+	    }
+	    cloned.setListaTripulantes(clonedTripulantes);
+	    if (this.tarea != null) {
+	        cloned.setTarea(this.tarea.clone());
+	    }
+	    return cloned;
+	}
 		
 }

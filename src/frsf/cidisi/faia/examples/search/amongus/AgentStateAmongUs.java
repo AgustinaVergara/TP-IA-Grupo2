@@ -46,7 +46,50 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
                Objects.equals(tareasPendientes, other.tareasPendientes) &&
                Objects.equals(tripulantesVivos, other.tripulantesVivos);
     }
+/*
+    @Override
+    public SearchBasedAgentState clone() {
+        Map<Nodo, List<Nodo>> clonedNaveAgente = new HashMap<>();
+        for (Map.Entry<Nodo, List<Nodo>> entry : this.naveAgente.entrySet()) {
+            Nodo key = entry.getKey().clone();
+            List<Nodo> value = entry.getValue();
+            List<Nodo> clonedValue = new ArrayList<>();
+            if (value != null) {
+                for (Nodo neighbor : value) {
+                    clonedValue.add(neighbor.clone());
+                }
+            }
+            clonedNaveAgente.put(key, clonedValue);
+        }
 
+        List<TareaAmongUs> clonedTareas = new ArrayList<>();
+        for (TareaAmongUs tarea : this.tareas) {
+            clonedTareas.add(tarea.clone());
+        }
+
+        List<Tripulante> clonedTripulantes = new ArrayList<>();
+        for (Tripulante tripulante : this.tripulantes) {
+            clonedTripulantes.add(tripulante.clone());
+        }
+
+        List<Nodo> clonedNodosVecinos = new ArrayList<>();
+        for (Nodo nodo : this.nodosVecinos) {
+            clonedNodosVecinos.add(nodo.clone());
+        }
+
+        return new AgentStateAmongUs(
+                clonedNaveAgente,
+                this.ubicacion,
+                this.energia,
+                this.energiaInicial,
+                clonedTareas,
+                this.tareasPendientes,
+                this.tripulantesVivos,
+                clonedTripulantes,
+                clonedNodosVecinos
+        );
+    }
+    */
     @Override
     public SearchBasedAgentState clone() {
 
@@ -62,6 +105,7 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
                 new ArrayList<>(this.nodosVecinos)
         );
     }
+
 
     @Override
     public void updateState(Perception p) {
