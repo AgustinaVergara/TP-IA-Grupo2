@@ -2,7 +2,7 @@ package frsf.cidisi.faia.examples.search.amongus;
 
 import java.util.Random;
 
-public class Tripulante {
+public class Tripulante implements Cloneable {
     
     private Integer id;
     private Boolean estaVivo;
@@ -16,7 +16,16 @@ public class Tripulante {
         this.ciclosParaMoverse = random.nextInt(4);
     }
     
-    public Integer getId() {
+    
+    public Tripulante(Integer id, Boolean estaVivo, Integer ciclosParaMoverse) {
+		super();
+		this.id = id;
+		this.estaVivo = estaVivo;
+		this.ciclosParaMoverse = ciclosParaMoverse;
+	}
+
+
+	public Integer getId() {
         return id;
     }
 
@@ -47,5 +56,22 @@ public class Tripulante {
                 ", estaVivo=" + estaVivo +
                 ", ciclosParaMoverse=" + ciclosParaMoverse +
                 '}';
+    }
+    @Override
+    public Tripulante clone() {
+    	
+    	Integer nuevoId = this.getId();
+    	Boolean nuevoEstaVivo = this.getEstaVivo();
+    	Integer nuevoCiclosParaMoverse = this.getCiclosParaMoverse();
+    	
+    	Tripulante nuevoTripulante = new Tripulante(nuevoId, nuevoEstaVivo, nuevoCiclosParaMoverse);
+        return nuevoTripulante;
+    }
+    
+    // Constructor de copia profunda
+    public Tripulante(Tripulante otro) {
+        this.id = otro.id;
+        this.estaVivo = new Boolean(otro.estaVivo);
+        this.ciclosParaMoverse = otro.ciclosParaMoverse;
     }
 }

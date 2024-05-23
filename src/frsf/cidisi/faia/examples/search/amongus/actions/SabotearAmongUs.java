@@ -14,20 +14,22 @@ public class SabotearAmongUs extends SearchAction {
 		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) s;
 		 
 		//En el nodo ubicacion del agente me fijo si tiene tarea y si la misma esta realizada o no
+		
+		//Falta agregar que no tiene que haber tripulantes "Si NO hay tripulantes y la máquina funciona, la sabotea"
 		if(estadoAgente.getUbicacion().getTarea() != null && !estadoAgente.getUbicacion().getTarea().getRealizada()) {
+			
 			//En el nodo de ubicacion del agente pongo la tarea realizada
 			//System.out.println("rompi la maquina");
 			estadoAgente.getUbicacion().getTarea().setRealizada(true);
 			int aux = estadoAgente.getTareasPendientes() - 1;
-			System.out.println(aux);
 			estadoAgente.setEnergia(estadoAgente.getEnergia() - 1);
 			estadoAgente.setTareasPendientes(aux);
 			//En la lista de tareas del agente seteo la tarea como realizada
 			estadoAgente.setTareaRealizada(estadoAgente.getUbicacion().getTarea().getNombre(), true);
 			
 			return estadoAgente;
-		}
-		;
+		};
+	
 		return null;
 	}
 

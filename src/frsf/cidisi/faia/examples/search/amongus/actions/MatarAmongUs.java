@@ -30,7 +30,6 @@ public class MatarAmongUs extends SearchAction{
 			estadoAgente.setEnergia(estadoAgente.getEnergia()-1);
 			return estadoAgente;
 		}
-		
 		return null;
 	}
 

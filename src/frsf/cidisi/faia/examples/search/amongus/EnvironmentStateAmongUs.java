@@ -95,7 +95,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         nave.put(nodo20, new ArrayList<>(Arrays.asList(nodo17, nodo21)));
         nave.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));
         */
-    	nave = new HashMap<>();
+    	nave = new LinkedHashMap<>();
         
         // Inicializar nodos
         nodo1 = new Nodo(1, "Habitacion1");
@@ -119,7 +119,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         energiaActual = energiaInicial;
         tripulantesVivos = 0;
         proximaVisionGlobal = 1; //primera percep global
-        tareasPendientes = 1;
+        tareasPendientes = 2;
         
         generarObjetivos(tripulantesVivos);
     }

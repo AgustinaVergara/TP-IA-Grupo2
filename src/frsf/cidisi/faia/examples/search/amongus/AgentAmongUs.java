@@ -45,10 +45,10 @@ public class AgentAmongUs extends SearchBasedAgent {
         this.setProblem(problem);
 
         // Configure the agent solver
-        DepthFirstSearch estrategia = new DepthFirstSearch();
-        Search searchSolver = new Search(estrategia);
-        searchSolver.setVisibleTree(Search.XML_TREE);
-        this.setSolver(searchSolver);
+        //DepthFirstSearch estrategia = new DepthFirstSearch();
+        //Search searchSolver = new Search(estrategia);
+        //searchSolver.setVisibleTree(Search.XML_TREE);
+        //this.setSolver(searchSolver);
     }
 
     /**
@@ -58,8 +58,8 @@ public class AgentAmongUs extends SearchBasedAgent {
     public Action selectAction() {
         // Create the search strategy
     	 
-    	//DepthFirstSearch strategy = new DepthFirstSearch();
-        BreathFirstSearch strategy = new BreathFirstSearch();
+    	DepthFirstSearch strategy = new DepthFirstSearch();
+        //BreathFirstSearch strategy = new BreathFirstSearch();
         
 
         // Create a Search object with the strategy
@@ -67,6 +67,7 @@ public class AgentAmongUs extends SearchBasedAgent {
 
         // Generate a file with the search tree
         searchSolver.setVisibleTree(Search.EFAIA_TREE);
+        searchSolver.setVisibleTree(Search.XML_TREE);
 
         // Set the Search solver
         this.setSolver(searchSolver);
@@ -76,14 +77,16 @@ public class AgentAmongUs extends SearchBasedAgent {
         Action selectedAction = null;
         try {
             //ACA ES QUE EXPLOTA
-            selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});
-            
+        	System.out.println("busca accion");
+            selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});            
             
         } catch (Exception ex) {
             Logger.getLogger(AgentAmongUs.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         // Return the selected action
+        System.out.println("Accion:" + selectedAction);
+        
         return selectedAction;
     }
 

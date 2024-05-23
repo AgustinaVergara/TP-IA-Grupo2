@@ -22,7 +22,8 @@ public class MoverAmongUs extends SearchAction{
 		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) s;
 		
 		//Como nodoSiguiente es un int hago un for sobre los nodos adyacente comparando los id cuando encuentre el que coincide hago el movimiento
-		for(Nodo nodo : estadoAgente.getNodosVecinos(estadoAgente.getUbicacion())) {
+		//for(Nodo nodo : estadoAgente.getNodosVecinos(estadoAgente.getUbicacion())) {
+		for(Nodo nodo : estadoAgente.getNodosVecinos()) {
 			if((int)nodo.getId() == this.nodoSiguiente) {
 				//System.out.println("me movi a: "+ estadoAgente.getUbicacion().getNombre());
 				//Actualizo energia, ubicación 

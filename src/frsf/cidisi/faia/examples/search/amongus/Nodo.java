@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Nodo {
+public class Nodo implements Cloneable{
 	
 	private Integer id;
 	private String nombre;
@@ -18,6 +18,14 @@ public class Nodo {
 		this.listaTripulantes = new ArrayList<>();
 	}
 	
+	public Nodo(Integer id, String nombre, List<Tripulante> listaTripulantes, TareaAmongUs tarea) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.listaTripulantes = listaTripulantes;
+		this.tarea = tarea;
+	}
+
 	public String toString() {
 		return this.id.toString();
 	}
@@ -46,7 +54,12 @@ public class Nodo {
 		this.nombre = nombre;
 	}
 
-	public Object getId() {
+	/*public Object getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}*/
+	
+	public Integer getId() {
 		// TODO Auto-generated method stub
 		return id;
 	}
@@ -55,6 +68,35 @@ public class Nodo {
 		this.id = id;
 	}
 	
+	@Override
+    public Nodo clone() {
+        Integer nuevoId = this.getId();
+		String nuevoNombre =this.getNombre();
+
+        List<Tripulante> nuevaListaTripulantes = new ArrayList<>();
+        for (Tripulante t : this.listaTripulantes) {
+            nuevaListaTripulantes.add(t.clone());
+        }
+
+        TareaAmongUs nuevaTarea;
+        if(this.tarea != null) {
+        	nuevaTarea = this.tarea.clone();
+        }else {
+        	nuevaTarea = null;
+        }
+       
+		Nodo nuevoNodo = new Nodo(nuevoId, nuevoNombre, nuevaListaTripulantes, nuevaTarea);
+		return nuevoNodo;
+    }
 	
+	
+	public Nodo(Nodo otro) {
+        this.id = otro.id;
+        this.nombre = new String(otro.nombre);
+        this.listaTripulantes = new ArrayList<>();
+        for (Tripulante tripulante : otro.listaTripulantes) {
+            this.listaTripulantes.add(new Tripulante(tripulante));
+        }
+    }
 		
 }
