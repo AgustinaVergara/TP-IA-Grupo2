@@ -261,12 +261,6 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
         this.nodosVecinos = nodosVecinos;
     }
 
-    public List<Nodo> getNodosVecinos(Nodo nodo) {
-    	List<Nodo> nodosAsociados = naveAgente.get(nodo);
-    	System.out.println("nodos"+nodosAsociados);
-        return nodosAsociados;
-    }
-
     public void setNodosVecinos(Nodo nodo, List<Nodo> nodosVecinos) {
         this.naveAgente.put(nodo, nodosVecinos);
     }

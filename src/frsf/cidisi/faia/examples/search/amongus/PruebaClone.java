@@ -49,6 +49,7 @@ public class PruebaClone {
 	clon.getUbicacion().setId(5);	
 	System.out.println("Original: " + original);
 	System.out.println("Cloninal: " + clon);
-	System.out.println("nodos vecinos " +clon.getNodosVecinos(clon.getUbicacion()));
+	System.out.println("Ubicacion: " + clon.getUbicacion());
+	System.out.println("nodos vecinos " +clon.getNodosVecinos());
 }
 }

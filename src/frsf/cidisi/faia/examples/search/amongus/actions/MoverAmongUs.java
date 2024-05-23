@@ -52,7 +52,7 @@ public class MoverAmongUs extends SearchAction{
 		AgentStateAmongUs estadoAgente = (AgentStateAmongUs) ast;
 		EnvironmentStateAmongUs estadoAmbiente = (EnvironmentStateAmongUs)est;
 		
-		for(Nodo nodo : estadoAgente.getNodosVecinos(estadoAgente.getUbicacion())) {
+		for(Nodo nodo : estadoAgente.getNodosVecinos()) {
 			if((int)nodo.getId() == this.nodoSiguiente) {
 				
 				estadoAmbiente.setEnergiaActual(estadoAgente.getEnergia() - 1);
