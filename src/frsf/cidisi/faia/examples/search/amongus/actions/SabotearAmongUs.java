@@ -48,6 +48,7 @@ public class SabotearAmongUs extends SearchAction {
 		if(estadoAgente.getUbicacion().getTarea() != null && !estadoAgente.getUbicacion().getTarea().getRealizada()) {
 			estadoAmbiente.setEnergiaActual(estadoAmbiente.getEnergiaActual() - 1);
 			estadoAmbiente.setTareasPendientes(estadoAmbiente.getTareasPendientes() -1 );
+			estadoAmbiente.getNodoActualAgente().getTarea().setRealizada(true);
 		}
 		
 		return estadoAmbiente;

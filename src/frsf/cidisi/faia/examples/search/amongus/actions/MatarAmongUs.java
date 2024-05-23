@@ -23,11 +23,12 @@ public class MatarAmongUs extends SearchAction{
 			int aux = estadoAgente.getTripulantesVivos() - 1;
 			
 			estadoAgente.setTripulantesVivos(aux);
+			estadoAgente.setEnergia(estadoAgente.getEnergia()-1);
 			
 			tripulanteAMatar.setEstaVivo(false);
 			estadoAgente.getUbicacion().getListaTripulantes().remove(tripulanteAMatar);
 			estadoAgente.getTripulantes().remove(0);
-			estadoAgente.setEnergia(estadoAgente.getEnergia()-1);
+			
 			return estadoAgente;
 		}
 		return null;
@@ -46,9 +47,12 @@ public class MatarAmongUs extends SearchAction{
 		EnvironmentStateAmongUs estadoAmbiente = (EnvironmentStateAmongUs)est;
 		
 		//Actualizo la energia y los tripulantes vivos
+		Tripulante tripulanteAMatar = estadoAmbiente.getNodoActualAgente().getListaTripulantes().get(0);
+		tripulanteAMatar.setEstaVivo(false);
 		estadoAmbiente.setEnergiaActual(estadoAgente.getEnergia() - 1);
 		estadoAmbiente.setTripulantesVivos(estadoAmbiente.getTripulantesVivos()-1);
-		
+		estadoAmbiente.getNodoActualAgente().getListaTripulantes().remove(tripulanteAMatar);
+		estadoAmbiente.getTripulantes().remove(0);
 		
 		return estadoAmbiente;
 	}

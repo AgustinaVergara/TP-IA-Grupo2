@@ -117,7 +117,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         System.out.println("Nodo actual del agente: " + this.nodoActualAgente);
         energiaInicial = 100;
         energiaActual = energiaInicial;
-        tripulantesVivos = 0;
+        tripulantesVivos = 1;
         proximaVisionGlobal = 1; //primera percep global
         tareasPendientes = 2;
         
