@@ -58,8 +58,8 @@ public class AgentAmongUs extends SearchBasedAgent {
     public Action selectAction() {
         // Create the search strategy
     	 
-    	DepthFirstSearch strategy = new DepthFirstSearch();
-        //BreathFirstSearch strategy = new BreathFirstSearch();
+    	//DepthFirstSearch strategy = new DepthFirstSearch();
+        BreathFirstSearch strategy = new BreathFirstSearch();
         
 
         // Create a Search object with the strategy

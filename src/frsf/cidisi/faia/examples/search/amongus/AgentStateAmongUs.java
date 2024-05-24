@@ -170,8 +170,8 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
         this.tripulantes = new ArrayList<>();
         this.nodosVecinos = new ArrayList<>();
         
-        this.naveAgente = new HashMap<>();
-        
+        this.naveAgente = new LinkedHashMap<>();
+        /*
         // Inicializar nodos
         Nodo nodo1 = new Nodo(1, "Habitacion1");
         Nodo nodo2 = new Nodo(2, "Habitacion2");
@@ -183,7 +183,7 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
         naveAgente.put(nodo2, new ArrayList<>(Arrays.asList(nodo1, nodo4))); // Habitacion2 conectada con Habitacion1 y Habitacion4
         naveAgente.put(nodo3, new ArrayList<>(Arrays.asList(nodo1)));         // Habitacion3 conectada con Habitacion1
         naveAgente.put(nodo4, new ArrayList<>(Arrays.asList(nodo2)));         // Habitacion4 conectada con Habitacion2
-    /*
+    */
      // Inicializar nodos
         Nodo nodo1 = new Nodo(1, "Cafeteria");
         Nodo nodo2 = new Nodo(2, "Pasillo1");
@@ -228,7 +228,7 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
         naveAgente.put(nodo18, new ArrayList<>(Arrays.asList(nodo17)));
         naveAgente.put(nodo19, new ArrayList<>(Arrays.asList(nodo17)));
         naveAgente.put(nodo20, new ArrayList<>(Arrays.asList(nodo17, nodo21)));
-        naveAgente.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));*/
+        naveAgente.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));
     }
 
 

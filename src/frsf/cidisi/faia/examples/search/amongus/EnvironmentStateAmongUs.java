@@ -25,7 +25,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
     private Nodo nodo2;
     private Nodo nodo3;
     private Nodo nodo4;
-    /*
+    
     private Nodo nodo5;
     private Nodo nodo6;
     private Nodo nodo7;
@@ -43,11 +43,12 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
     private Nodo nodo19;
     private Nodo nodo20;
     private Nodo nodo21;
-*/
+
     // En este metodo configuro el estado inicial del juego
     public void initState() {
-       /* // Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
-        nave = new HashMap<>();
+    	nave = new LinkedHashMap<>();
+        // Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
+        
         
         // Inicializar nodos
         nodo1 = new Nodo(1, "Cafeteria");
@@ -94,7 +95,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         nave.put(nodo19, new ArrayList<>(Arrays.asList(nodo17)));
         nave.put(nodo20, new ArrayList<>(Arrays.asList(nodo17, nodo21)));
         nave.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));
-        */
+        /*
     	nave = new LinkedHashMap<>();
         
         // Inicializar nodos
@@ -108,18 +109,18 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         nave.put(nodo2, new ArrayList<>(Arrays.asList(nodo1, nodo4))); // Habitacion2 conectada con Habitacion1 y Habitacion4
         nave.put(nodo3, new ArrayList<>(Arrays.asList(nodo1)));         // Habitacion3 conectada con Habitacion1
         nave.put(nodo4, new ArrayList<>(Arrays.asList(nodo2)));         // Habitacion4 conectada con Habitacion2
-    
+    */
         // Asignar la posición inicial del agente
         List<Nodo> allNodes = new ArrayList<>(nave.keySet());
         int randomNodeIndex = new Random().nextInt(allNodes.size());
         Nodo nodoInicialAgente = allNodes.get(randomNodeIndex);
         this.nodoActualAgente = nodoInicialAgente;
         System.out.println("Nodo actual del agente: " + this.nodoActualAgente);
-        energiaInicial = 100;
+        energiaInicial = 200;
         energiaActual = energiaInicial;
-        tripulantesVivos = 1;
+        tripulantesVivos = 5;
         proximaVisionGlobal = 1; //primera percep global
-        tareasPendientes = 2;
+        tareasPendientes = 5;
         
         generarObjetivos(tripulantesVivos);
     }
