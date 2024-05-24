@@ -1,8 +1,5 @@
 package frsf.cidisi.faia.examples.search.amongus;
 
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.*;
 
 import frsf.cidisi.faia.state.EnvironmentState;
@@ -25,7 +22,6 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
     private Nodo nodo2;
     private Nodo nodo3;
     private Nodo nodo4;
-    
     private Nodo nodo5;
     private Nodo nodo6;
     private Nodo nodo7;
@@ -47,80 +43,64 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
     // En este metodo configuro el estado inicial del juego
     public void initState() {
     	nave = new LinkedHashMap<>();
-        // Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
-        
-        
-        // Inicializar nodos
-        nodo1 = new Nodo(1, "Cafeteria");
-        nodo2 = new Nodo(2, "Pasillo1");
-        nodo3 = new Nodo(3, "Medbay");
-        nodo4 = new Nodo(4, "UpperEngine");
-        nodo5 = new Nodo(5, "Pasillo2");
-        nodo6 = new Nodo(6, "Reactor");
-        nodo7 = new Nodo(7, "Security");
-        nodo8 = new Nodo(8, "LowerEngine");
-        nodo9 = new Nodo(9, "Pasillo3");
-        nodo10 = new Nodo(10, "Electrical");
-        nodo11 = new Nodo(11, "Storage");
-        nodo12 = new Nodo(12, "Pasillo5");
-        nodo13 = new Nodo(13, "Pasillo4");
-        nodo14 = new Nodo(14, "Communication");
-        nodo15 = new Nodo(15, "Admin");
-        nodo16 = new Nodo(16, "Shield");
-        nodo17 = new Nodo(17, "Pasillo6");
-        nodo18 = new Nodo(18, "Navigation");
-        nodo19 = new Nodo(19, "O2");
-        nodo20 = new Nodo(20, "Weapons");
-        nodo21 = new Nodo(21, "Pasillo7");
-        
-        // Crear aristas
-        nave.put(nodo1, new ArrayList<>(Arrays.asList(nodo2, nodo12, nodo21)));
-        nave.put(nodo2, new ArrayList<>(Arrays.asList(nodo1, nodo3, nodo4)));
-        nave.put(nodo3, new ArrayList<>(Arrays.asList(nodo2)));
-        nave.put(nodo4, new ArrayList<>(Arrays.asList(nodo2, nodo5)));
-        nave.put(nodo5, new ArrayList<>(Arrays.asList(nodo4, nodo6, nodo7, nodo8)));
-        nave.put(nodo6, new ArrayList<>(Arrays.asList(nodo5)));
-        nave.put(nodo7, new ArrayList<>(Arrays.asList(nodo5)));
-        nave.put(nodo8, new ArrayList<>(Arrays.asList(nodo5, nodo9)));
-        nave.put(nodo9, new ArrayList<>(Arrays.asList(nodo8, nodo10, nodo11)));
-        nave.put(nodo10, new ArrayList<>(Arrays.asList(nodo9)));
-        nave.put(nodo11, new ArrayList<>(Arrays.asList(nodo9, nodo12, nodo13)));
-        nave.put(nodo12, new ArrayList<>(Arrays.asList(nodo1, nodo11, nodo15)));
-        nave.put(nodo13, new ArrayList<>(Arrays.asList(nodo11, nodo14, nodo16)));
-        nave.put(nodo14, new ArrayList<>(Arrays.asList(nodo13)));
-        nave.put(nodo15, new ArrayList<>(Arrays.asList(nodo12)));
-        nave.put(nodo16, new ArrayList<>(Arrays.asList(nodo13, nodo17)));
-        nave.put(nodo17, new ArrayList<>(Arrays.asList(nodo16, nodo18, nodo19, nodo20)));
-        nave.put(nodo18, new ArrayList<>(Arrays.asList(nodo17)));
-        nave.put(nodo19, new ArrayList<>(Arrays.asList(nodo17)));
-        nave.put(nodo20, new ArrayList<>(Arrays.asList(nodo17, nodo21)));
-        nave.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));
-        /*
-    	nave = new LinkedHashMap<>();
-        
-        // Inicializar nodos
-        nodo1 = new Nodo(1, "Habitacion1");
-        nodo2 = new Nodo(2, "Habitacion2");
-        nodo3 = new Nodo(3, "Habitacion3");
-        nodo4 = new Nodo(4, "Habitacion4");
-        
-        // Crear aristas
-        nave.put(nodo1, new ArrayList<>(Arrays.asList(nodo2, nodo3))); // Habitacion1 conectada con Habitacion2 y Habitacion3
-        nave.put(nodo2, new ArrayList<>(Arrays.asList(nodo1, nodo4))); // Habitacion2 conectada con Habitacion1 y Habitacion4
-        nave.put(nodo3, new ArrayList<>(Arrays.asList(nodo1)));         // Habitacion3 conectada con Habitacion1
-        nave.put(nodo4, new ArrayList<>(Arrays.asList(nodo2)));         // Habitacion4 conectada con Habitacion2
-    */
+        //Representa el grafo, donde las claves son los nodos y los valores son listas de nodos adyacentes 
+
+    	 nodo1 = new Nodo(1, "Cafeteria");
+         nodo2 = new Nodo(2, "Pasillo1");
+         nodo3 = new Nodo(3, "Medbay");
+         nodo4 = new Nodo(4, "UpperEngine");
+         nodo5 = new Nodo(5, "Pasillo2");
+         nodo6 = new Nodo(6, "Reactor");
+         nodo7 = new Nodo(7, "Security");
+         nodo8 = new Nodo(8, "LowerEngine");
+         nodo9 = new Nodo(9, "Pasillo3");
+         nodo10 = new Nodo(10, "Electrical");
+         nodo11 = new Nodo(11, "Storage");
+         nodo12 = new Nodo(12, "Pasillo5");
+         nodo13 = new Nodo(13, "Pasillo4");
+         nodo14 = new Nodo(14, "Communication");
+         nodo15 = new Nodo(15, "Admin");
+         nodo16 = new Nodo(16, "Shield");
+         nodo17 = new Nodo(17, "Pasillo6");
+         nodo18 = new Nodo(18, "Navigation");
+         nodo19 = new Nodo(19, "O2");
+         nodo20 = new Nodo(20, "Weapons");
+         nodo21 = new Nodo(21, "Pasillo7");
+         
+         // Crear aristas
+         nave.put(nodo1, new ArrayList<>(Arrays.asList(nodo2, nodo12, nodo21)));
+         nave.put(nodo2, new ArrayList<>(Arrays.asList(nodo1, nodo3, nodo4)));
+         nave.put(nodo3, new ArrayList<>(Arrays.asList(nodo2)));
+         nave.put(nodo4, new ArrayList<>(Arrays.asList(nodo2, nodo5)));
+         nave.put(nodo5, new ArrayList<>(Arrays.asList(nodo4, nodo6, nodo7, nodo8)));
+         nave.put(nodo6, new ArrayList<>(Arrays.asList(nodo5)));
+         nave.put(nodo7, new ArrayList<>(Arrays.asList(nodo5)));
+         nave.put(nodo8, new ArrayList<>(Arrays.asList(nodo5, nodo9)));
+         nave.put(nodo9, new ArrayList<>(Arrays.asList(nodo8, nodo10, nodo11)));
+         nave.put(nodo10, new ArrayList<>(Arrays.asList(nodo9)));
+         nave.put(nodo11, new ArrayList<>(Arrays.asList(nodo9, nodo12, nodo13)));
+         nave.put(nodo12, new ArrayList<>(Arrays.asList(nodo1, nodo11, nodo15)));
+         nave.put(nodo13, new ArrayList<>(Arrays.asList(nodo11, nodo14, nodo16)));
+         nave.put(nodo14, new ArrayList<>(Arrays.asList(nodo13)));
+         nave.put(nodo15, new ArrayList<>(Arrays.asList(nodo12)));
+         nave.put(nodo16, new ArrayList<>(Arrays.asList(nodo13, nodo17)));
+         nave.put(nodo17, new ArrayList<>(Arrays.asList(nodo16, nodo18, nodo19, nodo20)));
+         nave.put(nodo18, new ArrayList<>(Arrays.asList(nodo17)));
+         nave.put(nodo19, new ArrayList<>(Arrays.asList(nodo17)));
+         nave.put(nodo20, new ArrayList<>(Arrays.asList(nodo17, nodo21)));
+         nave.put(nodo21, new ArrayList<>(Arrays.asList(nodo1, nodo20)));
+
         // Asignar la posición inicial del agente
         List<Nodo> allNodes = new ArrayList<>(nave.keySet());
         int randomNodeIndex = new Random().nextInt(allNodes.size());
         Nodo nodoInicialAgente = allNodes.get(randomNodeIndex);
         this.nodoActualAgente = nodoInicialAgente;
         System.out.println("Nodo actual del agente: " + this.nodoActualAgente);
-        energiaInicial = 200;
+        energiaInicial = 50;
         energiaActual = energiaInicial;
-        tripulantesVivos = 5;
-        proximaVisionGlobal = 1; //primera percep global
-        tareasPendientes = 5;
+        tripulantesVivos = 3;
+        proximaVisionGlobal = 1; //1: primera percep global
+        tareasPendientes = 3;
         
         generarObjetivos(tripulantesVivos);
     }

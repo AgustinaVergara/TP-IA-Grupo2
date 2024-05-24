@@ -70,7 +70,7 @@ public class MoverAmongUs extends SearchAction{
 	public String toString() {
 		String str;
 		
-		str = "Moviendo a: " + this.nodoSiguiente;
+		str = "moviendoA" + this.nodoSiguiente;
 		return str;
 	}
 	

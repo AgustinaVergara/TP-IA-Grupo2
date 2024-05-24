@@ -3,6 +3,8 @@ package frsf.cidisi.faia.examples.search.amongus;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.agent.Perception;
@@ -34,7 +36,7 @@ public class AgentAmongUs extends SearchBasedAgent {
         operators.addElement(new MatarAmongUs());
         operators.addElement(new SabotearAmongUs());
         // Use instances of the generic move action, so it is not necessary to create a class for each movement
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 21; i++) {
             operators.addElement(new MoverAmongUs(i));
         }
 
@@ -44,11 +46,6 @@ public class AgentAmongUs extends SearchBasedAgent {
         Problem problem = new Problem(goal, (AgentStateAmongUs) amongUsState, operators);
         this.setProblem(problem);
 
-        // Configure the agent solver
-        //DepthFirstSearch estrategia = new DepthFirstSearch();
-        //Search searchSolver = new Search(estrategia);
-        //searchSolver.setVisibleTree(Search.XML_TREE);
-        //this.setSolver(searchSolver);
     }
 
     /**
@@ -68,6 +65,7 @@ public class AgentAmongUs extends SearchBasedAgent {
         // Generate a file with the search tree
         searchSolver.setVisibleTree(Search.EFAIA_TREE);
         searchSolver.setVisibleTree(Search.XML_TREE);
+        
 
         // Set the Search solver
         this.setSolver(searchSolver);
@@ -77,19 +75,34 @@ public class AgentAmongUs extends SearchBasedAgent {
         Action selectedAction = null;
         try {
             //ACA ES QUE EXPLOTA
-        	System.out.println("busca accion");
             selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});            
             
         } catch (Exception ex) {
             Logger.getLogger(AgentAmongUs.class.getName()).log(Level.SEVERE, null, ex);
         }
+   
         
-        // Return the selected action
-        System.out.println("Accion:" + selectedAction);
+        //Guardo las acciones seleccionadas en un archivo
+        if(selectedAction != null) {
+        	log(selectedAction.toString());
+        }else {
+        	log("objetivoAlcanzado");
+        }
+        
         
         return selectedAction;
     }
 
+    public static void log(String mensaje) {
+        try {
+            FileWriter writer = new FileWriter(SearchMainAmongUs.archivoLog, true); // true para añadir al final del archivo
+            writer.write(mensaje + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al escribir en el archivo.");
+            e.printStackTrace();
+        }
+    }
     /**
      * This method is executed by the simulator to give the agent a perception.
      * Then it updates its state.

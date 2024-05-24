@@ -16,19 +16,9 @@ public class SearchMainAmongUs {
 		// Crear instancia de EnvironmentAmongUs
 		EnvironmentAmongUs  amongUsEnvironment = new EnvironmentAmongUs();
 		amongUsEnvironment.getEnvironmentState().initState();
-		//((AgentStateAmongUs)amongUsAgent.getAgentState()).setUbicacion(((EnvironmentStateAmongUs)amongUsEnvironment.getEnvironmentState()).getNodoActualAgente());
 		
 		SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(amongUsEnvironment, amongUsAgent);
 		
-		
-		//System.out.println(amongUsEnvironment.toString());
-		 
-		
-		// Crear instancia del simulador:
-		//SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(amongUsEnvironment, amongUsAgent);
-		//faia en SearchBasedAgentSimulator pide EnvironmentAmongUs (el q extiende de Environment) y no EnvironmentStateAmongUs
-		
-		//simulator.start();
 		try {
 			  archivoLog = new File("logAcciones.txt");
 		      if (archivoLog.createNewFile()) {

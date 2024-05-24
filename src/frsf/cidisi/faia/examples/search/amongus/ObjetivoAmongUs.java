@@ -9,7 +9,7 @@ public class ObjetivoAmongUs extends GoalTest {
 	public boolean isGoalState(AgentState agentState) {
 	    if (((AgentStateAmongUs) agentState).getTripulantesVivos() == 0 &&
 	            ((AgentStateAmongUs) agentState).getTareasPendientes() == 0 &&
-	            ((AgentStateAmongUs) agentState).getEnergia() >= 0) {
+	            ((AgentStateAmongUs) agentState).getEnergia() > 0) {
 	        return true;
 	    } else if (((AgentStateAmongUs) agentState).getEnergia() == 0) {
 	        return false;

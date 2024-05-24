@@ -68,6 +68,8 @@ public class Tripulante implements Cloneable {
         return nuevoTripulante;
     }
     
+
+
     // Constructor de copia profunda
     public Tripulante(Tripulante otro) {
         this.id = otro.id;
