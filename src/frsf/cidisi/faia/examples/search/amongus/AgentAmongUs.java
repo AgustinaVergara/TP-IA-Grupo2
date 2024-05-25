@@ -64,7 +64,7 @@ public class AgentAmongUs extends SearchBasedAgent {
 
         // Generate a file with the search tree
         searchSolver.setVisibleTree(Search.EFAIA_TREE);
-        searchSolver.setVisibleTree(Search.XML_TREE);
+        //searchSolver.setVisibleTree(Search.XML_TREE);
         
 
         // Set the Search solver
@@ -75,7 +75,7 @@ public class AgentAmongUs extends SearchBasedAgent {
         Action selectedAction = null;
         try {
             //ACA ES QUE EXPLOTA
-            selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});            
+            selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});
             
         } catch (Exception ex) {
             Logger.getLogger(AgentAmongUs.class.getName()).log(Level.SEVERE, null, ex);

@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
+import frsf.cidisi.faia.examples.search.pacman.PacmanEnvironmentState;
 
 public class EnvironmentAmongUs extends Environment {
 
@@ -58,56 +60,6 @@ public class EnvironmentAmongUs extends Environment {
         
         return perception;
     }
-/*CHATGPT
-    @Override
-    public Perception getPercept() {
-        // Actualizar el estado de los tripulantes
-        this.ciclosTripulantes();
-
-        PerceptionAmongUs perception = new PerceptionAmongUs();
-        EnvironmentStateAmongUs state = getEnvironmentState();
-
-        // Obtener el nodo actual del agente
-        Nodo nodoActual = state.getNodoActualAgente();
-        if (nodoActual != null) {
-            perception.setNodoActualAgente(new Nodo(nodoActual)); // Asegúrate que Nodo tenga un constructor de copia
-        }
-
-        // Establecer los nodos vecinos
-        if (nodoActual != null) {
-            // Realizar una copia profunda del mapa de nodos vecinos
-            List<Nodo> nodosVecinos = state.getNave().get(nodoActual)
-                .stream()
-                .map(Nodo::new) // Constructor de copia para Nodo
-                .collect(Collectors.toList());
-            perception.setNodosVecinos(nodosVecinos);
-        }
-
-        // Verificar si se debe pasar el mapa completo
-        if (state.getProximaVisionGlobal() == 0) {
-            // Realizar una copia profunda del mapa completo de la nave
-            Map<Nodo, List<Nodo>> naveCopia = new HashMap<Nodo, List<Nodo>>();
-            for (Map.Entry<Nodo, List<Nodo>> entry : state.getNave().entrySet()) {
-                Nodo keyCopy = new Nodo(entry.getKey()); // Constructor de copia para Nodo
-                List<Nodo> valueCopy = entry.getValue().stream().map(Nodo::new).collect(Collectors.toList()); // Copia profunda
-                naveCopia.put(keyCopy, valueCopy);
-            }
-            perception.setMapaCompleto(naveCopia);
-        }
-
-        // Establecer la cantidad de tripulantes vivos y tareas pendientes
-        perception.setTripulantesVivos((state.getTripulantesVivos())); // Copia profunda de la lista de tripulantes vivos
-        perception.setTareasPendientes((state.getTareasPendientes())); // Copia profunda de la lista de tareas pendientes
-        perception.setEnergia(state.getEnergiaActual());
-       
-        // Realizar copias profundas de las listas de tripulantes y tareas
-        perception.setTripulantes(state.getTripulantes().stream().map(Tripulante::new).collect(Collectors.toList())); // Constructor de copia para Tripulante
-        perception.setTareas(state.getTareas().stream().map(TareaAmongUs::new).collect(Collectors.toList())); // Constructor de copia para Tarea
-
-        return perception;
-    }
-
-*/
     
     
     private void ciclosTripulantes() {
@@ -144,5 +96,21 @@ public class EnvironmentAmongUs extends Environment {
     @Override
     public String toString() {
         return environmentState.toString();
+    }
+    @Override
+    public boolean agentFailed(Action actionReturned) {
+
+        EnvironmentStateAmongUs amongUsEnvironmentState = this.getEnvironmentState();
+
+        int agentEnergy = amongUsEnvironmentState.getEnergiaActual();
+        System.out.println("energia: "+agentEnergy);
+        // FIXME: The pacman agent always has the same energy
+        // If the agent has no energy, he failed
+        if (agentEnergy <= 0) {
+        	 return true;
+        }else {
+        	return false;
+        }
+           
     }
 }

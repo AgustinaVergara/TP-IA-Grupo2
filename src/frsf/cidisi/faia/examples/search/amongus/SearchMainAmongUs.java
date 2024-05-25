@@ -35,6 +35,13 @@ public class SearchMainAmongUs {
 		// Iniciar simulador
 		simulator.start();
 		
+		 try {
+	            Interfaz.main(new String[]{});
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+		
+		
 	}
 	
 }

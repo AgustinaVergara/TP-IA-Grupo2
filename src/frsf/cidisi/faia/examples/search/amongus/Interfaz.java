@@ -19,7 +19,7 @@ public class Interfaz {
     static JFrame frame = new JFrame();
     static JButton exitButton = new JButton("Exit");
     
-    static String source = "C:\\Users\\mica_\\Downloads\\among us\\Acciones\\";
+    static String source = "C:\\Users\\agust\\OneDrive\\Desktop\\Acciones\\";
     
     
 	public static void imagen (String icono) throws InterruptedException {
@@ -61,25 +61,6 @@ public class Interfaz {
         
 	}
 	
-	/*public static void imagenMasRapida (String icono) throws InterruptedException {
-
-		// Crea un objeto ImageIcon a partir del archivo de imagen
-        ImageIcon icon = new ImageIcon(icono);
-
-        // Crea un objeto JLabel con el ImageIcon
-        JLabel label = new JLabel(icon);
-
-        // Crea un objeto JFrame y agrega el JLabel
-
-        frame.getContentPane().add(label);
-        frame.setLocation(0,0);
-        // Configura el JFrame
-        frame.pack();
-        frame.setVisible(true);
-        Thread.sleep(200);
-        frame.getContentPane().remove(label);
-        
-	}*/
 	
 	public static void matar () throws InterruptedException {
 		System.out.println("Matar a tripulante");
@@ -182,41 +163,7 @@ public class Interfaz {
 	
 	
 	
-	/*
-	public static void de0a1 () throws InterruptedException {
-		for(int i=3;i<=15;i++) {
-			imagen(source+"1 ("+i+").png");
-		}
-		for(int i=2;i<=6;i++) {
-			imagen(source+"2 ("+i+").png");
-		}
-	}	*/
-	/*
-	public static void huyendo() throws InterruptedException{
-		for(int i=1;i<=10;i++) {
-			imagenMasLenta(source+"lucha1."+i+".png");
-		}
-		for(int i=1;i<=8;i++) {
-			imagenMasLenta(source+"lucha1.perdio"+i+".png");
-		}
-	}*/
-	/*
-	public static void peleando() throws InterruptedException{
-		for(int i=1;i<=10;i++) {
-			imagenMasLenta(source+"lucha1."+i+".png");
-		}
-		for(int i=1;i<=6;i++) {
-			imagenMasLenta(source+"lucha1.perdio"+i+".png");
-		}
-	}*/
-	/*
-	public static void algo() throws InterruptedException{
-		for(int i=1;i<=16;i++) {
-			imagenMasRapida(source+"algo"+i+".png");
-		}
-	}
-	*/
-    
+
 	public static void main(String[] args) throws Exception {	
     	FileReader archivo;
         BufferedReader lector;

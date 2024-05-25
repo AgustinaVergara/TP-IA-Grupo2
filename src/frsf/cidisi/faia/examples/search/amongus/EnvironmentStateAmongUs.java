@@ -110,7 +110,7 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         ArrayList<TareaAmongUs> listaTareas = new ArrayList<>();
         List<Nodo> allNodes = new ArrayList<>(nave.keySet());
 
-        // Generar en posiciones aleatorias
+        // Generar tripulantes en posiciones aleatorias
         for (int i = 0; i < cantidadTripulantes; i++) {
             int randomNodeIndex = new Random().nextInt(allNodes.size());
             Nodo randomNode = allNodes.get(randomNodeIndex);
@@ -118,19 +118,22 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
             listaTripulantes.add(nuevoTripulante);
             randomNode.getListaTripulantes().add(nuevoTripulante);
         }
-        
-        Set<Integer> nodosAsignadosIndices = new HashSet<>();
-        while (nodosAsignadosIndices.size() < tareasPendientes) {
-            int randomNodeIndex = new Random().nextInt(allNodes.size());
-            Nodo randomNode = allNodes.get(randomNodeIndex);
-
-            if (!nodosAsignadosIndices.contains(randomNodeIndex)) {
-                nodosAsignadosIndices.add(randomNodeIndex);
-                TareaAmongUs nuevaTarea = new TareaAmongUs("Tarea Aleatoria");
-                randomNode.setTarea(nuevaTarea);
-                listaTareas.add(nuevaTarea);
+        for (Nodo nodo : allNodes) {
+            if (nodo.getId() == 6) {
+                TareaAmongUs tarea = new TareaAmongUs("Destruir el reactor");
+                nodo.setTarea(tarea);
+                listaTareas.add(tarea);
+            } else if (nodo.getId() == 10) {
+                TareaAmongUs tarea = new TareaAmongUs("Desconectar el servicio eléctrico");
+                nodo.setTarea(tarea);
+                listaTareas.add(tarea);
+            } else if (nodo.getId() == 20) {
+                TareaAmongUs tarea = new TareaAmongUs("Destruir la sala de armas");
+                nodo.setTarea(tarea);
+                listaTareas.add(tarea);
             }
         }
+        
         this.tripulantes = listaTripulantes;
         this.tareas=listaTareas;
     }
