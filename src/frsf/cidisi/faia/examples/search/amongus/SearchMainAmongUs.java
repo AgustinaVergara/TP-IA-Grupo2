@@ -17,6 +17,7 @@ public class SearchMainAmongUs {
 		EnvironmentAmongUs  amongUsEnvironment = new EnvironmentAmongUs();
 		amongUsEnvironment.getEnvironmentState().initState();
 		
+		// Crear instancia del simulador
 		SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(amongUsEnvironment, amongUsAgent);
 		
 		try {
@@ -30,6 +31,8 @@ public class SearchMainAmongUs {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
+		
+		// Iniciar simulador
 		simulator.start();
 		
 	}
