@@ -36,7 +36,7 @@ public class SabotearAmongUs extends SearchAction {
 	@Override
 	public Double getCost() {
 		// TODO Auto-generated method stub
-		return null;
+		return 2.0;
 	}
 
 	@Override

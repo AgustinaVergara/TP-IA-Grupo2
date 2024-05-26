@@ -17,8 +17,26 @@ public class PerceptionAmongUs extends Perception {
     private List<TareaAmongUs> tareas;
     private int energia;
     private List<Tripulante> tripulantes;
+    private Integer cantidadTripulantesInicial;
+	private Integer cantidadMovimientos;
 
-    public PerceptionAmongUs(Agent agent, Environment environment) {
+    public Integer getCantidadTripulantesInicial() {
+		return cantidadTripulantesInicial;
+	}
+
+	public void setCantidadTripulantesInicial(Integer cantidadTripulantesInicial) {
+		this.cantidadTripulantesInicial = cantidadTripulantesInicial;
+	}
+
+	public Integer getCantidadMovimientos() {
+		return cantidadMovimientos;
+	}
+
+	public void setCantidadMovimientos(Integer cantidadMovimientos) {
+		this.cantidadMovimientos = cantidadMovimientos;
+	}
+
+	public PerceptionAmongUs(Agent agent, Environment environment) {
         super(agent, environment);
     }
 
@@ -48,6 +66,8 @@ public class PerceptionAmongUs extends Perception {
         this.tripulantes = amongUsEnvironmentState.getTripulantes();
         this.tareas = amongUsEnvironmentState.getTareas();
         this.energia = amongUsEnvironmentState.getEnergiaActual();
+        this.cantidadTripulantesInicial = amongUsEnvironmentState.getCantidadTripulantesInicial();
+        this.cantidadMovimientos = amongUsEnvironmentState.getCantidadMovimientos();
     }
 
     public int getEnergia() {

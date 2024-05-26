@@ -55,6 +55,8 @@ public class EnvironmentAmongUs extends Environment {
        
         perception.setTripulantes(state.getTripulantes());   
         perception.setTareas(state.getTareas());
+        perception.setCantidadTripulantesInicial(state.getCantidadTripulantesInicial());
+        perception.setCantidadMovimientos(state.getCantidadMovimientos());
         
 
         

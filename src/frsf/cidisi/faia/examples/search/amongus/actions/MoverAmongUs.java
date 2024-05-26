@@ -40,7 +40,7 @@ public class MoverAmongUs extends SearchAction{
 	@Override
 	public Double getCost() {
 		// TODO Auto-generated method stub
-		return null;
+		return 4.0;
 	}
 
 	@Override

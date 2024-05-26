@@ -14,9 +14,13 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.examples.search.amongus.actions.MoverAmongUs;
 import frsf.cidisi.faia.examples.search.amongus.actions.MatarAmongUs;
 import frsf.cidisi.faia.examples.search.amongus.actions.SabotearAmongUs;
+import frsf.cidisi.faia.solver.search.AStarSearch;
 import frsf.cidisi.faia.solver.search.BreathFirstSearch;
 import frsf.cidisi.faia.solver.search.DepthFirstSearch;
 import frsf.cidisi.faia.solver.search.Search;
+import frsf.cidisi.faia.solver.search.UniformCostSearch;
+import frsf.cidisi.faia.solver.search.IStepCostFunction;
+import frsf.cidisi.faia.solver.search.IEstimatedCostFunction;
 
 public class AgentAmongUs extends SearchBasedAgent {
 
@@ -56,8 +60,13 @@ public class AgentAmongUs extends SearchBasedAgent {
         // Create the search strategy
     	 
     	//DepthFirstSearch strategy = new DepthFirstSearch();
-        BreathFirstSearch strategy = new BreathFirstSearch();
+        //BreathFirstSearch strategy = new BreathFirstSearch();
+    	//IStepCostFunction  costFunction = new CostFunction();
+        //UniformCostSearch strategy= new UniformCostSearch(costFunction);
         
+        IStepCostFunction cost = new CostFunction();
+        IEstimatedCostFunction heuristic = new HeuristicaAmongUs();
+        AStarSearch strategy = new AStarSearch(cost, heuristic);
 
         // Create a Search object with the strategy
         Search searchSolver = new Search(strategy);

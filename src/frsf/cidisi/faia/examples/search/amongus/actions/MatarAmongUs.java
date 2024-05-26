@@ -37,7 +37,7 @@ public class MatarAmongUs extends SearchAction{
 	@Override
 	public Double getCost() {
 		// TODO Auto-generated method stub
-		return null;
+		return 1.5;
 	}
 
 	@Override

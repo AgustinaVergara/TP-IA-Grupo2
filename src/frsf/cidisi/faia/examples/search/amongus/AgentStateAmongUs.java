@@ -15,6 +15,9 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 	private Integer tripulantesVivos;
 	private List<Tripulante> tripulantes;
 	private List<Nodo> nodosVecinos;
+	private Integer cantidadTripulantesInicial;
+	private Integer cantidadMovimientos;
+	private Double cost;
 	private Nodo nodo1;
 	private Nodo nodo2;
 	private Nodo nodo3;
@@ -39,7 +42,7 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 
 	public AgentStateAmongUs(Map<Nodo, List<Nodo>> naveAgente, Nodo ubicacion, Integer energia, Integer energiaInicial,
 			List<TareaAmongUs> tareas, Integer tareasPendientes, Integer tripulantesVivos, List<Tripulante> tripulantes,
-			List<Nodo> nodosVecinos) {
+			List<Nodo> nodosVecinos, Integer cantTipulantesIni, Integer cantMov,Double cost) {
 		super();
 		// Un LinkedHashMap mantiene el orden de inserción de los elementos, lo que
 		// garantiza que las entradas se almacenen y se recuperen en el mismo orden en que se agregaron.
@@ -52,6 +55,9 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		this.tripulantesVivos = tripulantesVivos;
 		this.tripulantes = new ArrayList<>(tripulantes);
 		this.nodosVecinos = new ArrayList<>(nodosVecinos);
+		this.cantidadTripulantesInicial =cantTipulantesIni;
+		this.cantidadMovimientos=cantMov;
+		this.cost = cost;
 	}
 
 	public AgentStateAmongUs() {
@@ -89,6 +95,9 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		Integer nuevaEnergiaInicial = this.getEnergiaInicial();
 		Integer nuevaTareasPendientes = this.getTareasPendientes();
 		Integer nuevaTripulantesVivos = this.getTripulantesVivos();
+		Integer nuevaTripulantesIni = this.getCantidadTripulantesInicial();
+		Integer nuevaCantMovimientos =this.getCantidadMovimientos();
+		Double nuevoCosto =this.getCost();
 
 		// Clonar mapa
 		Map<Nodo, List<Nodo>> nuevaNaveAgente = new LinkedHashMap<>();
@@ -116,9 +125,32 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 
 		AgentStateAmongUs nuevoEstadoAgente = new AgentStateAmongUs(nuevaNaveAgente, nuevaUbicacion, nuevaEnergia,
 				nuevaEnergiaInicial, nuevaTareas, nuevaTareasPendientes, nuevaTripulantesVivos, nuevaTripulantes,
-				nuevaNodosVecinos);
+				nuevaNodosVecinos,nuevaTripulantesIni,nuevaCantMovimientos,nuevoCosto);
 		return nuevoEstadoAgente;
 	}
+
+	public Integer getCantidadTripulantesInicial() {
+		return cantidadTripulantesInicial;
+	}
+
+	public void setCantidadTripulantesInicial(Integer cantidadTripulantesInicial) {
+		this.cantidadTripulantesInicial = cantidadTripulantesInicial;
+	}
+
+	public Integer getCantidadMovimientos() {
+		return cantidadMovimientos;
+	}
+
+	public void setCantidadMovimientos(Integer cantidadMovimientos) {
+		this.cantidadMovimientos = cantidadMovimientos;
+	}
+	public Double getCost() {
+        return cost;
+    }
+
+    public void incrementCost(Double cost) {
+        this.cost += cost;
+    }
 
 	@Override
 	public void updateState(Perception p) {
@@ -142,6 +174,8 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		this.tripulantes = new ArrayList<>(percepcion.getTripulantes());
 		this.tareas = new ArrayList<>(percepcion.getTareas());
 		this.energia = percepcion.getEnergia();
+		this.cantidadTripulantesInicial=percepcion.getCantidadTripulantesInicial();
+		this.cantidadMovimientos=percepcion.getCantidadMovimientos();
 	}
 
 	@Override
@@ -162,6 +196,7 @@ public class AgentStateAmongUs extends SearchBasedAgentState {
 		this.tripulantesVivos = 0;
 		this.tripulantes = new ArrayList<>();
 		this.nodosVecinos = new ArrayList<>();
+		this.cost = 0.;
 
 		this.naveAgente = new LinkedHashMap<>();
 

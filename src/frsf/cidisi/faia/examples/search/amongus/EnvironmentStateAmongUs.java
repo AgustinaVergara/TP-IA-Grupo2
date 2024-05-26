@@ -16,8 +16,25 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
     private List<TareaAmongUs> tareas;
     private List<Tripulante> tripulantes;
     private Map<Nodo, List<Nodo>> nave;
+    private Integer cantidadTripulantesInicial;
+	private Integer cantidadMovimientos;
     
-    // Definiciones de nodos
+    public Integer getCantidadTripulantesInicial() {
+		return cantidadTripulantesInicial;
+	}
+
+	public void setCantidadTripulantesInicial(Integer cantidadTripulantesInicial) {
+		this.cantidadTripulantesInicial = cantidadTripulantesInicial;
+	}
+
+	public Integer getCantidadMovimientos() {
+		return cantidadMovimientos;
+	}
+
+	public void setCantidadMovimientos(Integer cantidadMovimientos) {
+		this.cantidadMovimientos = cantidadMovimientos;
+	}
+	// Definiciones de nodos
     private Nodo nodo1;
     private Nodo nodo2;
     private Nodo nodo3;
@@ -101,6 +118,9 @@ public class EnvironmentStateAmongUs extends EnvironmentState {
         tripulantesVivos = 3;
         proximaVisionGlobal = 1; //1: primera percep global
         tareasPendientes = 3;
+        cantidadTripulantesInicial = tripulantesVivos;
+    	cantidadMovimientos = 0;
+        
         
         generarObjetivos(tripulantesVivos);
     }
