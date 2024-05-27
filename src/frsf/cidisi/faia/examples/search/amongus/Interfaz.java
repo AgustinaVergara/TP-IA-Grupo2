@@ -63,101 +63,101 @@ public class Interfaz {
 	
 	
 	public static void matar () throws InterruptedException {
-		System.out.println("Matar a tripulante");
+		//System.out.println("Matar a tripulante");
 				videoMatando(source+"matando4.gif");
 		
 	}
 	
 	public static void moviendoA1 () throws InterruptedException {
-		System.out.println("Se mueve a Cafeteria");
+		//System.out.println("Se mueve a Cafeteria");
 				imagen(source+"cafeteria.jpg");
 	}
 	public static void moviendoA2 () throws InterruptedException {
-		System.out.println("Se mueve a Pasillo1");
+		//System.out.println("Se mueve a Pasillo1");
 				imagen(source+"pasillo1.jpg");
 	}
 	public static void moviendoA3 () throws InterruptedException {
-		System.out.println("Se mueve a Medbay");
+		//System.out.println("Se mueve a Medbay");
 				imagen(source+"medbay.jpg");
 	}
 	public static void moviendoA4 () throws InterruptedException {
-		System.out.println("Se mueve a UpperEngine");
+		//System.out.println("Se mueve a UpperEngine");
 				imagen(source+"upper.jpg");
 	}
 	public static void moviendoA5 () throws InterruptedException {
-		System.out.println("Se mueve a Pasillo2");
+		//System.out.println("Se mueve a Pasillo2");
 				imagen(source+"pasillo2.jpg");
 	}
 	public static void moviendoA6 () throws InterruptedException {
-		System.out.println("Se mueve a Reactor");
+		//System.out.println("Se mueve a Reactor");
 				imagen(source+"reactor.jpg");
 	}
 	public static void moviendoA7 () throws InterruptedException {
-		System.out.println("Se mueve a Security");
+		//System.out.println("Se mueve a Security");
 				imagen(source+"security.jpg");
 	}
 	public static void moviendoA8 () throws InterruptedException {
-		System.out.println("Se mueve a LowerEngine");
+		//System.out.println("Se mueve a LowerEngine");
 				imagen(source+"lower.jpg");
 	}
 	public static void moviendoA9 () throws InterruptedException {
-		System.out.println("Se mueve a Pasillo3");
+		//System.out.println("Se mueve a Pasillo3");
 				imagen(source+"pasillo3.jpg");
 	}
 	public static void moviendoA10 () throws InterruptedException {
-		System.out.println("Se mueve a Electrical");
+		//System.out.println("Se mueve a Electrical");
 				imagen(source+"electrical.jpg");
 	}
 	public static void moviendoA11 () throws InterruptedException {
-		System.out.println("Se mueve a Storage");
+		//System.out.println("Se mueve a Storage");
 				imagen(source+"storage.jpg");
 	}
 	public static void moviendoA12 () throws InterruptedException {
-		System.out.println("Se mueve a Pasillo5");
+		//System.out.println("Se mueve a Pasillo5");
 				imagen(source+"pasillo5.jpg");
 	}
 	public static void moviendoA13 () throws InterruptedException {
-		System.out.println("Se mueve a Pasillo4");
+		//System.out.println("Se mueve a Pasillo4");
 				imagen(source+"pasillo4.jpg");
 	}
 	public static void moviendoA14 () throws InterruptedException {
-		System.out.println("Se mueve a Communication");
+		//System.out.println("Se mueve a Communication");
 				imagen(source+"comunicaciones.jpg");
 	}
 	public static void moviendoA15 () throws InterruptedException {
-		System.out.println("Se mueve a Admin");
+		//System.out.println("Se mueve a Admin");
 				imagen(source+"admin.jpg");
 	}
 	public static void moviendoA16 () throws InterruptedException {
-		System.out.println("Se mueve a Shield");
+		//System.out.println("Se mueve a Shield");
 				imagen(source+"shield.jpg");
 	}
 	public static void moviendoA17 () throws InterruptedException {
-		System.out.println("Se mueve a Pasillo6");
+		//System.out.println("Se mueve a Pasillo6");
 				imagen(source+"pasillo6.jpg");
 	}
 	public static void moviendoA18 () throws InterruptedException {
-		System.out.println("Se mueve a Navigation");
+		//System.out.println("Se mueve a Navigation");
 				imagen(source+"navigation.jpg");
 	}
 	public static void moviendoA19 () throws InterruptedException {
-		System.out.println("Se mueve a O2");
+		//System.out.println("Se mueve a O2");
 				imagen(source+"o2.jpg");
 	}
 	public static void moviendoA20 () throws InterruptedException {
-		System.out.println("Se mueve a Weapons");
+		//System.out.println("Se mueve a Weapons");
 				imagen(source+"weapons.jpg");
 	}
 	public static void moviendoA21 () throws InterruptedException {
-		System.out.println("Se mueve a Pasillo7");
+		//System.out.println("Se mueve a Pasillo7");
 				imagen(source+"pasillo7.jpg");
 	}
 	public static void sabotear () throws InterruptedException {
-		System.out.println("Se sabotea una maquina");
+		//System.out.println("Se sabotea una maquina");
 				imagen(source+"sabotear.jpg");
 	}
 	public static void objetivoAlcanzado () throws InterruptedException {
-		System.out.println("Se alcanzó el objetivo");
+		//System.out.println("Se alcanzó el objetivo");
 				imagen(source+"objetivo.jpg");
 	}
 	

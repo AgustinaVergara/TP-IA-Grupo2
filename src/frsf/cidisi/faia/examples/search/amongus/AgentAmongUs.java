@@ -61,7 +61,8 @@ public class AgentAmongUs extends SearchBasedAgent {
     	 
     	//DepthFirstSearch strategy = new DepthFirstSearch();
         //BreathFirstSearch strategy = new BreathFirstSearch();
-    	//IStepCostFunction  costFunction = new CostFunction();
+    	
+  	  // IStepCostFunction  costFunction = new CostFunction();
         //UniformCostSearch strategy= new UniformCostSearch(costFunction);
         
         IStepCostFunction cost = new CostFunction();
